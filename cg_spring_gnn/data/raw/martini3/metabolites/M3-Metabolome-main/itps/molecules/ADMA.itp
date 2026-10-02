@@ -1,0 +1,49 @@
+; Martini 3 topology for ADMA
+; please cite all relevant publications.
+
+[ moleculetype ]
+ADMA 1
+
+[ atoms ]
+1 SQ5n 1 ADMA CAC1 5 -1.0 54.0
+2 TQ4p 1 ADMA AMC1 4  1.0 36.0
+3 SC1  1 ADMA C1   3  0.0 54.0
+4 SQ2p 1 ADMA GUA1 2  0.0 54.0
+5 SN3a 1 ADMA AMN1 1  0.0 54.0
+
+[ bonds ]
+2 3 1 0.315 26078.985
+3 4 1 0.367 4550.933
+
+#ifdef FLEXIBLE
+1 2 1 0.284 10000
+4 5 1 0.248 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.284
+4 5 1 0.248
+#endif
+
+[ angles ]
+1 2 3 10 77.079 52.782
+2 3 4 10 133.64 40
+3 4 5 1 152.461 50
+
+[ exclusions ]
+1 2 3 
+
+[ dihedrals ]
+1 2 3 4 9 31.956 0.387 1
+1 2 3 4 9 90.59 -0.795 2
+1 2 3 4 9 99.956 -1.665 3
+1 2 3 4 9 -52.811 -1.57 4
+1 2 3 4 9 -24.1 0.6 5
+1 2 3 4 9 17.252 -0.157 6
+1 2 3 4 9 39.228 -0.314 7
+1 2 3 4 9 85.454 0.305 8
+1 2 3 4 9 -88.167 0.238 9
+1 2 3 4 9 130.983 0.148 10
+2 3 4 5 9 172.28 -1.191 1
+

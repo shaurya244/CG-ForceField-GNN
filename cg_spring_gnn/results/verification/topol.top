@@ -1,0 +1,8 @@
+; Top-level system topology for IBUP
+#include "IBUP_predicted.itp"
+
+[ system ]
+MARTINI 3 Coarse-Grained System: IBUP
+
+[ molecules ]
+IBUP 1

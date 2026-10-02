@@ -1,0 +1,31 @@
+; Martini 3 topology for D-Xylulose 5-phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+X5P 1
+
+[ atoms ]
+1 TP1  1 X5P ALC1 1  0.0 36.0
+2 TN5a 1 X5P CO1  2  0.0 36.0
+3 TP1  1 X5P ALC2 3  0.0 36.0
+4 SP1  1 X5P ALC3 4  0.0 54.0
+5 D    1 X5P P1   5 -2.0     
+
+[ bonds ]
+1 2 1 0.218 20000
+2 3 1 0.240 20000
+3 4 1 0.258 9268
+4 5 1 0.356 15000
+
+[ angles ]
+1 2 3 2 53 125
+2 3 4 2 75 200
+3 4 5 2 85 100
+
+[ exclusions ]
+2 3 4 
+3 4 
+
+[ dihedrals ]
+1 2 3 4 1 -3 10 1
+

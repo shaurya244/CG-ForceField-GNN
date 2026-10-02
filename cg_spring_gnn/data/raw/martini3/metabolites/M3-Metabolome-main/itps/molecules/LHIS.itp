@@ -1,0 +1,42 @@
+; Martini 3 topology for L-Histidine
+; please cite all relevant publications.
+
+[ moleculetype ]
+LHIS 1
+
+[ atoms ]
+1 SQ4p 1 LHIS BB0 1  1.0 48.0
+2 SQ5n 1 LHIS BB1 2 -1.0 66.0
+3 TC4  1 LHIS SC1 3  0.0  0.0
+4 TN6d 1 LHIS SC2 4  0.0 48.0
+5 TN5a 1 LHIS SC3 5  0.0     
+
+[ bonds ]
+1 4 1 0.457 3073.614
+2 4 1 0.609 5000
+2 5 1 0.549 2640.451
+
+#ifdef FLEXIBLE
+4 5 1 0.270 10000
+#endif
+
+[ constraints ]
+1 2 1 0.3
+
+#ifndef FLEXIBLE
+4 5 1 0.270 10000
+#endif
+
+[ angles ]
+1 4 5 10 67.524 58.726
+2 4 5 10 68.099 58.247
+
+[ virtual_sites3 ]
+3 1 2 4 1 0.364 0.436
+
+[ exclusions ]
+1 2 3 4 5 
+2 3 4 5 
+3 4 5 
+4 5 
+

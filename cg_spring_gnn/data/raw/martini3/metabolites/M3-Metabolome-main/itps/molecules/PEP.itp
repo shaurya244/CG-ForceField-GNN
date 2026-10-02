@@ -1,0 +1,31 @@
+; Martini 3 topology for Phosphoenolpyruvate
+; please cite all relevant publications.
+
+[ moleculetype ]
+PEP 1
+
+[ atoms ]
+1 SQ5n 1 PEP CAC1 1 -1.0 54.0
+2 TC4  1 PEP C1   2  0.0 36.0
+3 D    1 PEP P1   3 -2.0 72.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.281 10000
+2 3 1 0.381 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.281
+2 3 1 0.381
+#endif
+
+[ angles ]
+1 2 3 10 62.419 350.000
+
+[ exclusions ]
+1 2 3 
+2 1 3 
+3 1 2 
+

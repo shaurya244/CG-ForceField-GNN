@@ -1,0 +1,47 @@
+; Martini 3 topology for N-Acetyl-D-glucosamine 6-phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+GN6P 1
+
+[ atoms ]
+1 SN6   1 GN6P GLU1 1  0.0 54.0
+2 SP4r  1 GN6P GLU2 2  0.0 54.0
+3 SN4ar 1 GN6P GLU3 3  0.0 54.0
+4 D     1 GN6P P1   4 -2.0     
+5 P3d   1 GN6P AMD1 5  0.0     
+6 TC4   1 GN6P GLU4 6  0.0  0.0
+
+[ bonds ]
+1 5 1 0.362 6230
+
+#ifdef FLEXIBLE
+1 2 1 0.385 10000
+1 3 1 0.383 10000
+2 3 1 0.348 10000
+3 4 1 0.327 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.385
+1 3 1 0.383
+2 3 1 0.348
+3 4 1 0.327
+#endif
+
+[ angles ]
+2 1 5 2 84 173
+3 1 5 2 125 45
+1 3 4 2 146 84
+2 3 4 2 100 50
+
+[ dihedrals ]
+5 1 3 4 1 -104 1 1
+
+[ virtual_sitesn ]
+6 1 1 2 3
+
+[ exclusions ]
+6 1 2 3 4 5 
+

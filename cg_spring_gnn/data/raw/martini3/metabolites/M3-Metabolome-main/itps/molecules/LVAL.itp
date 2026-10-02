@@ -1,0 +1,16 @@
+; Martini 3 topology for L-Valine
+; please cite all relevant publications.
+
+[ moleculetype ]
+LVAL 1
+
+[ atoms ]
+1 SQ4p 1 LVAL BB0 1  1.0 
+2 SQ5n 1 LVAL BB1 2 -1.0 
+3 SC3  1 LVAL SC1 3  0.0 
+
+[ constraints ]
+1 2 1 0.283
+1 3 1 0.265
+2 3 1 0.358
+

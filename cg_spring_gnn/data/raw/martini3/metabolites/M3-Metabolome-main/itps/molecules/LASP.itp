@@ -1,0 +1,16 @@
+; Martini 3 topology for L-Aspartate
+; please cite all relevant publications.
+
+[ moleculetype ]
+LASP 1
+
+[ atoms ]
+1 SQ4p 1 LASP BB0 1  1.0 
+2 SQ5n 1 LASP BB1 2 -1.0 
+3 SQ5n 1 LASP SC1 3 -1.0 
+
+[ constraints ]
+1 2 1 0.281
+1 3 1 0.291
+2 3 1 0.336
+

@@ -1,0 +1,20 @@
+; Martini 3 topology for Pyruvate
+; please cite all relevant publications.
+
+[ moleculetype ]
+PYR 1
+
+[ atoms ]
+1 SP2  1 PYR ENO1 1  0.0 54.0
+2 SQ5n 1 PYR CAC1 2 -1.0 54.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.282 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.282
+#endif
+

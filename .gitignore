@@ -1,0 +1,89 @@
+# ==============================================================================
+# Git Ignore - EE798: Coarse-Grained Molecular Force Field Prediction with GNNs
+# ==============================================================================
+
+# Byte-compiled / optimized / Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env
+ENV/
+env.bak/
+venv.bak/
+conda/
+.conda/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# IDEs & code editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+
+# Operating system files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Logs & scratch debug artifacts
+*.log
+*.tmp
+*.bak
+scratch/
+.tempmediaStorage/
+
+# Temporary archive downloads
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tgz
+
+# ------------------------------------------------------------------------------
+# Preserved Deliverables & Artifacts (Explicitly tracked)
+# ------------------------------------------------------------------------------
+# We deliberately preserve trained checkpoints, benchmark results, and reports:
+!checkpoints/
+!checkpoints/*.pt
+!results/
+!results/**/*.png
+!results/**/*.json
+!results/**/*.csv
+!results/**/*.md
+!results/**/*.itp
+!results/**/*.mdp
+!results/**/*.gro
+!results/**/*.top
+!results/**/*.sh
+!full_project_report_and_study_guide.md
+!full_project_report_and_study_guide.pdf
+!*.pdf

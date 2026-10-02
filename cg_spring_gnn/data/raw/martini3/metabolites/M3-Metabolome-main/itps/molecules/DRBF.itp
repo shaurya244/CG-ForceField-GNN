@@ -1,0 +1,68 @@
+; Martini 3 topology for Riboflavin
+; Note: Deprotonated RBF
+; please cite all relevant publications.
+
+[ moleculetype ]
+DRBF 1
+
+[ atoms ]
+ 1 SC4  1 DRBF FLV1  1  0.0    
+ 2 SC4  1 DRBF FLV2  2  0.0    
+ 3 TC5e 1 DRBF FLV3  3  0.0 0.0
+ 4 SN6a 1 DRBF FLV4  4  0.0    
+ 5 SN3a 1 DRBF FLV5  5  0.0    
+ 6 TC5e 1 DRBF FLV6  6  0.0 0.0
+ 7 SQ3  1 DRBF FLV7  7 -1.0    
+ 8 SP3  1 DRBF FLV8  8  0.0    
+ 9 TC5e 1 DRBF FLV9  9  0.0 0.0
+10 SP1  1 DRBF ALC1 10  0.0    
+11 TP1  1 DRBF ALC2 11  0.0    
+12 TP1  1 DRBF ALC3 12  0.0    
+13 TP1  1 DRBF ALC4 13  0.0    
+
+[ bonds ]
+ 1  2 1 0.317 50000
+ 1  4 1 0.415 50000
+ 1  5 1 0.488 50000
+ 2  5 1 0.425 50000
+ 4  7 1 0.293 50000
+ 4  8 1 0.398 50000
+ 5  8 1 0.338 50000
+ 5 10 1 0.230 20000
+ 7  8 1 0.272 50000
+10 11 1 0.253 15000
+11 12 1 0.254 10258
+12 13 1 0.251 6915
+
+[ angles ]
+ 1  4  7 2 157 10000
+ 2  5  8 2 170 12000
+ 5 10 11 2 145 90
+10 11 12 2 80 300
+11 12 13 2 70 250
+
+[ virtual_sitesn ]
+ 6 1  4  5
+ 9 1  4  8
+
+[ dihedrals ]
+ 1  2  4  5 1 -0.464 100 1
+ 4  5  7  8 1 -0.775 70 1
+10 11 12 13 1 0 20 1
+
+[ virtual_sites3 ]
+ 3  1  2  4 2 0.500 0.230
+
+[ exclusions ]
+ 1  2  3  4  5  6  7  8  9 
+ 2  3  4  5  6  7  8  9 
+ 3  4  5  6  7  8  9 
+ 4  5  6  7  8  9 
+ 5  6  7  8  9 
+ 6  7  8  9 
+ 7  8  9 
+ 8  9 
+10 11 12 13 
+11 12 13 
+12 13 
+

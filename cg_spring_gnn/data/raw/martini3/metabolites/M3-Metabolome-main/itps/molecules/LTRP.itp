@@ -1,0 +1,50 @@
+; Martini 3 topology for L-Tryptophan
+; please cite all relevant publications.
+
+[ moleculetype ]
+LTRP 1
+
+[ atoms ]
+1 SQ4p 1 LTRP BB0 1  1.0     
+2 SQ5n 1 LTRP BB1 2 -1.0     
+3 TC4  1 LTRP SC1 3  0.0 36.0
+4 TN6d 1 LTRP SC2 4  0.0 36.0
+5 TC5  1 LTRP SC3 5  0.0  0.0
+6 TC5  1 LTRP SC4 6  0.0 36.0
+7 TC5  1 LTRP SC5 7  0.0 36.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+3 4 1 0.335 10000
+3 6 1 0.404 10000
+4 6 1 0.470 10000
+4 7 1 0.412 10000
+6 7 1 0.293 10000
+#endif
+
+[ constraints ]
+1 2 1 0.282
+1 3 1 0.26
+2 3 1 0.306
+
+#ifndef FLEXIBLE
+3 4 1 0.335 10000
+3 6 1 0.404 10000
+4 6 1 0.470 10000
+4 7 1 0.412 10000
+6 7 1 0.293 10000
+#endif
+
+[ angles ]
+1 3 4 10 92.95 50.276
+2 3 4 10 130.002 51.094
+
+[ dihedrals ]
+3 4 6 7 2 180.0 100.0
+
+[ exclusions ]
+5 7 6 4 3 
+
+[ virtual_sitesn ]
+5 2 7 6 4 3
+

@@ -1,0 +1,67 @@
+; Martini 3 topology for CMP
+; please cite all relevant publications.
+
+[ moleculetype ]
+CMP 1
+
+[ atoms ]
+1 SN1   1 CMP CYO1 1  0.0 45.0
+2 TP1a  1 CMP CYO2 2  0.0 45.0
+3 TN5a  1 CMP CYO3 3  0.0  0.0
+4 TP1d  1 CMP CYO4 4  0.0 45.0
+5 SN6   1 CMP RIB1 5  0.0 54.0
+6 TP1   1 CMP RIB2 6  0.0 54.0
+7 SN4ar 1 CMP RIB3 7  0.0 54.0
+8 TC4   1 CMP RIB4 8  0.0  0.0
+9 D     1 CMP P1   9 -1.0 72.0
+
+[ bonds ]
+1 5 b_CYO1_RIB1
+
+#ifdef FLEXIBLE
+5 6 b_RIB1_RIB2
+5 7 b_RIB1_RIB3
+6 7 b_RIB2_RIB3
+7 9 b_RIB3_P1
+#endif
+
+[ constraints ]
+1 2 1 0.255
+1 4 1 0.340
+2 4 1 0.412
+
+#ifndef FLEXIBLE
+5 6 c_RIB1_RIB2
+5 7 c_RIB1_RIB3
+6 7 c_RIB2_RIB3
+7 9 c_RIB3_P1
+#endif
+
+[ angles ]
+2 1 5 a_CYO2_CYO1_RIB1
+4 1 5 a_CYO4_CYO1_RIB1
+1 5 6 a_CYO1_RIB1_RIB2
+1 5 7 a_CYO1_RIB1_RIB3
+5 7 9 a_RIB1_RIB3_P1
+
+[ virtual_sitesn ]
+3 2 2 4
+8 1 5 6 7
+
+[ dihedrals ]
+1 5 6 7 d_CYO1_RIB1_RIB2_RIB3
+1 5 7 9 d_CYO1_RIB1_RIB3_P1
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_1
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_2
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_3
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_4
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_5
+
+[ exclusions ]
+1 2 3 4 
+1 5 6 7 
+2 1 5 6 7 
+2 3 4 
+3 4 
+8 5 6 7 
+

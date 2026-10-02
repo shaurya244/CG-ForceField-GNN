@@ -1,0 +1,39 @@
+; Martini 3 topology for saccharopine
+; please cite all relevant publications.
+
+[ moleculetype ]
+SACH 1
+
+[ atoms ]
+1 SQ5n 1 SACH CAC1 1 -1.0 
+2 TQ4p 1 SACH AMC1 2  1.0 
+3 SC1  1 SACH C1   3  0.0 
+4 SQ3p 1 SACH AMC2 4  1.0 
+5 SQ5n 1 SACH CAC2 5 -1.0 
+6 TC1  1 SACH C2   6  0.0 
+7 SQ5n 1 SACH CAC3 7 -1.0 
+
+[ bonds ]
+2 3 1 0.314 15000
+3 4 1 0.326 4387
+4 5 1 0.294 10217
+4 6 1 0.317 8332
+6 7 1 0.242 25000
+
+#ifdef FLEXIBLE
+1 2 1 0.284 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.284
+#endif
+
+[ angles ]
+1 2 3 2 80 300
+2 3 4 2 120 30
+3 4 5 2 147 30
+3 4 6 2 133 100
+5 4 6 10 75 250
+4 6 7 2 90 150
+

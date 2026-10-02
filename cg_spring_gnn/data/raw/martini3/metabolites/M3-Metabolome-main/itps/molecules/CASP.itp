@@ -1,0 +1,22 @@
+; Martini 3 topology for carbamoyl aspartate
+; please cite all relevant publications.
+
+[ moleculetype ]
+CASP 1
+
+[ atoms ]
+1 SP5  1 CASP AMD1 1  0.0 54.0
+2 SN4  1 CASP AMN1 2  0.0 54.0
+3 SQ5n 1 CASP CAC2 3 -1.0 54.0
+4 SQ5n 1 CASP CAC1 4 -1.0 54.0
+
+[ bonds ]
+1 2 1 0.341 10000
+2 3 1 0.242 10000
+2 4 1 0.232 10000
+
+[ angles ]
+1 2 3 10 99.627 51.586
+1 2 4 10 106.224 54.389
+3 2 4 10 145.601 100
+

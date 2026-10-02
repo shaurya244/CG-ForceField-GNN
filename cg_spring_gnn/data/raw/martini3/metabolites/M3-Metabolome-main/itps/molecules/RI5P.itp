@@ -1,0 +1,33 @@
+; Martini 3 topology for D-Ribulose 5-phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+RI5P 1
+
+[ atoms ]
+1 TP1  1 RI5P ALC1 1  0.0 36.0
+2 TN5a 1 RI5P CO1  2  0.0 36.0
+3 TP1  1 RI5P ALC2 3  0.0 36.0
+4 SP1  1 RI5P ALC3 4  0.0 54.0
+5 D    1 RI5P P1   5 -2.0     
+
+[ bonds ]
+1 2 1 0.223 15000
+2 3 1 0.243 13525
+3 4 1 0.254 11503
+4 5 1 0.315 5000
+
+[ angles ]
+1 2 3 2 87 150
+2 3 4 2 89 150
+3 4 5 2 120 50
+
+[ dihedrals ]
+1 2 3 4 1 -10 15 1
+
+[ exclusions ]
+1 2 3 4 5 
+2 3 4 5 
+3 4 5 
+4 5 
+

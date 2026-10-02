@@ -1,0 +1,89 @@
+;;;;;; Martini lipid topology for di-C22:1  (DEZ1), generated using:
+; The Martini lipid itp generator version M3.l01 Ionizable lipids  Args are: -alname DEZ1 -alhead 'Z1' -altail 'CCDCC CCDCC'
+; WARNING: Lipids topology was generated following the Martini 3.0 guidelines but not all lipid head group and tail combinations
+;          have been tested; used with care and see <M3lipid main ref> for guidance.
+;
+; Description:
+;   ALC based IL -  Neutral
+; Parameterization:
+;   This topology follows the standard Martini 3.0 lipid definitions and building block rules.
+; Reference(s): 
+;   L. Kjølbye et al. Ionizable Lipids, TBD and K.B. Pedersen et al.  TBD Martini 3 lipids TBD and P.C.T. Souza et al. Martini 3: a general purpose force field for coarse-grained molecular dynamics, 
+;   Nat. Methods; 2021. doi: 10.1038/s41592-021-01098-9
+; Created: 2023.01.28
+;
+; Molecular topology and mapping of indices:
+;@INSANE alhead=Z1, altail=CCDCC CCDCC, alname=DEZ1, charge=0.0
+;@RESNTEST DEZ==DEZ1 if: atoms[0]==OH
+;@BEADS OH N1 CA GLA CX C1A C2A D3A C4A C5A C1B C2B D3B C4B C5B 
+;@BONDS OH-N1 N1-CA CA-GLA GLA-CX CX-C1A CX-C1B C1A-C2A C2A-D3A D3A-C4A C4A-C5A C1B-C2B C2B-D3B D3B-C4B C4B-C5B 
+;
+
+[moleculetype]
+; molname      nrexcl
+  DEZ1          1
+
+[atoms]
+; id 	type 	resnr 	residu 	atom 	cgnr 	charge    (mass)
+   1  P1     1  DEZ1   OH   1 	0
+   2  SN3a   1  DEZ1   N1   2 	0
+   3  C2     1  DEZ1   CA   3 	0
+   4  SN4a   1  DEZ1  GLA   4 	0
+   5  C2     1  DEZ1  CX    5 	0
+   6    C1   1  DEZ1  C1A   6 	0
+   7    C1   1  DEZ1  C2A   7 	0
+   8   C4h   1  DEZ1  D3A   8 	0
+   9    C1   1  DEZ1  C4A   9 	0
+  10    C1   1  DEZ1  C5A  10 	0
+  11    C1   1  DEZ1  C1B  11 	0
+  12    C1   1  DEZ1  C2B  12 	0
+  13   C4h   1  DEZ1  D3B  13 	0
+  14    C1   1  DEZ1  C4B  14 	0
+  15    C1   1  DEZ1  C5B  15 	0
+
+[bonds]
+;  i  j 	name 	(using named bondtypes from martini_v3.0_ffbonded.itp)
+;  i  j 	funct 	force.c.
+; Headgroup and linker bonds
+   1  2   1 	0.52 	2500 	; OH-N1
+   2  3   1 	0.52 	2500 	; N1-CA
+   3  4   1 	0.37 	5000 	; CA-GLA
+   4  5   1 	0.37 	5000 	; GLA-CX
+   5  6   1 	0.47 	5000 	; CX-C1A
+   5 11   1 	0.47 	5000 	; CX-C1B
+; Lipid tail (uses standard Martini tail rules)
+   6  7 	b_C1_C1
+   7  8 	b_C1_C4
+   8  9 	b_C4_C1
+   9 10 	b_C1_C1
+  11 12 	b_C1_C1
+  12 13 	b_C1_C4
+  13 14 	b_C4_C1
+  14 15 	b_C1_C1
+
+[angles]
+;  i  j  k 	name 	(using named angletypes from martini_v3.0_ffbonded.itp)
+;  i  j  k 	funct 	angle 	force.c.
+; Orient the headgroup and linker
+   1  2  3   2 	115 	32 	; OH-N1-CA
+   4  5 11   2 	100 	25 	; GLA-CX-C1B
+   4  5  6   2 	100 	25 	; GLA-CX-C1A
+; Tail part (uses standard Martini tail rules)
+   5  6  7   2 	155 	25 	; CX-C1A-C2A
+   5 11 12   1 	155 	25 	; CX-C1B-C2B
+   6  7  8 	a_C1_C1_C4
+   7  8  9 	a_C1_C4_C1
+   8  9 10 	a_C4_C1_C1
+  11 12 13 	a_C1_C1_C4
+  12 13 14 	a_C1_C4_C1
+  13 14 15 	a_C4_C1_C1
+
+[exclusions]
+; i  j  k  ...
+1 2 3
+6 11
+[ pairs ]
+6 11 1 4.100000e-01    2.350000e+00
+
+
+

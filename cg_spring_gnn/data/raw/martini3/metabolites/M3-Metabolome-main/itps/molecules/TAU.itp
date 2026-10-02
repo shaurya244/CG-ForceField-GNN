@@ -1,0 +1,20 @@
+; Martini 3 topology for taurine
+; please cite all relevant publications.
+
+[ moleculetype ]
+TAU 1
+
+[ atoms ]
+1 Q4n  1 TAU SUL1 1 -1.0 72.0
+2 TQ3p 1 TAU AMC1 2  1.0 36.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.298 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.298
+#endif
+

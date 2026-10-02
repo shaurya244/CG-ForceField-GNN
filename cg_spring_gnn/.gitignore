@@ -1,0 +1,36 @@
+# ==============================================================================
+# Git Ignore - cg_spring_gnn package
+# ==============================================================================
+
+# Byte-compiled / Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+venv/
+.venv/
+env/
+.env
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temp
+*.log
+*.tmp
+*.bak
+scratch/
+
+# Archives
+*.zip
+*.tar.gz
+
+# Explicitly track checkpoints and results
+!checkpoints/*.pt
+!results/**

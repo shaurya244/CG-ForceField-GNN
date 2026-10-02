@@ -1,0 +1,18 @@
+; Martini 3 topology for GABA
+; please cite all relevant publications.
+
+[ moleculetype ]
+GABA 1
+
+[ atoms ]
+1 SQ5n 1 GABA CAC1 1 -1.0 54.0
+2 TC1  1 GABA C1   2  0.0 36.0
+3 TQ4p 1 GABA AMC1 3  1.0 36.0
+
+[ bonds ]
+1 2 1 0.247 10000
+2 3 1 0.251 8931.516
+
+[ angles ]
+1 2 3 10 106.5 3.788
+

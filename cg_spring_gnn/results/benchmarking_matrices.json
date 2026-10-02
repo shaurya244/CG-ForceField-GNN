@@ -1,0 +1,312 @@
+{
+  "Evolutionary_Milestones": [
+    {
+      "Stage": "Stage 0: Mean Baseline",
+      "Bond_Linear_R2": -0.26,
+      "Angle_Linear_R2": -0.18,
+      "Angle_MAE_kJ_mol_rad2": 41.8,
+      "Verlet_Stability_20fs_pct": 12.3,
+      "Regime_Accuracy_pct": 38.2,
+      "Thermal_Fluctuation_Pass_pct": 18.5
+    },
+    {
+      "Stage": "Stage 1: Early GNN v1 (Softplus / Outliers)",
+      "Bond_Linear_R2": 0.78,
+      "Angle_Linear_R2": 0.34,
+      "Angle_MAE_kJ_mol_rad2": 38.2,
+      "Verlet_Stability_20fs_pct": 74.2,
+      "Regime_Accuracy_pct": 62.1,
+      "Thermal_Fluctuation_Pass_pct": 68.4
+    },
+    {
+      "Stage": "Stage 2: Cleaned MPNN v2 (#ifdef Dedup / Fixed Offsets)",
+      "Bond_Linear_R2": 0.938,
+      "Angle_Linear_R2": 0.52,
+      "Angle_MAE_kJ_mol_rad2": 27.4,
+      "Verlet_Stability_20fs_pct": 94.6,
+      "Regime_Accuracy_pct": 78.4,
+      "Thermal_Fluctuation_Pass_pct": 88.2
+    },
+    {
+      "Stage": "Stage 3: Advanced MPNN v3 (Dual Node-Edge / Multitask)",
+      "Bond_Linear_R2": 0.9398,
+      "Angle_Linear_R2": 0.6041,
+      "Angle_MAE_kJ_mol_rad2": 23.11,
+      "Verlet_Stability_20fs_pct": 98.8,
+      "Regime_Accuracy_pct": 87.12,
+      "Thermal_Fluctuation_Pass_pct": 95.4
+    },
+    {
+      "Stage": "Stage 4: Specialist GNN (P80 Filtered)",
+      "Bond_Linear_R2": 0.9402,
+      "Angle_Linear_R2": 0.2188,
+      "Angle_MAE_kJ_mol_rad2": 29.97,
+      "Verlet_Stability_20fs_pct": 98.5,
+      "Regime_Accuracy_pct": 84.21,
+      "Thermal_Fluctuation_Pass_pct": 94.1
+    },
+    {
+      "Stage": "Stage 5 (SOTA): Stacking Hybrid (GNN + XGBoost)",
+      "Bond_Linear_R2": 0.9398,
+      "Angle_Linear_R2": 0.9211,
+      "Angle_MAE_kJ_mol_rad2": 12.42,
+      "Verlet_Stability_20fs_pct": 100.0,
+      "Regime_Accuracy_pct": 88.43,
+      "Thermal_Fluctuation_Pass_pct": 99.2
+    }
+  ],
+  "Multi_Tier_VV_Scorecard": [
+    {
+      "Tier": "Tier 1: ML Generalization",
+      "Parameter": "Bond Linear R^2",
+      "Target": ">= 0.90",
+      "Value": "0.9398",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 1: ML Generalization",
+      "Parameter": "Angle Linear R^2",
+      "Target": ">= 0.90",
+      "Value": "0.9211",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 1: ML Generalization",
+      "Parameter": "Angle Log R^2",
+      "Target": ">= 0.80",
+      "Value": "0.8532",
+      "Status": "Pass (A)",
+      "Score": 0.85
+    },
+    {
+      "Tier": "Tier 1: ML Generalization",
+      "Parameter": "Angle Median Abs Error",
+      "Target": "< 2.0 kJ/mol",
+      "Value": "0.50 kJ/mol",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 1: ML Generalization",
+      "Parameter": "Angle Pearson r",
+      "Target": ">= 0.95",
+      "Value": "0.9612",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 2: Physical Regime",
+      "Parameter": "Regime Classification Acc",
+      "Target": ">= 85.0%",
+      "Value": "88.43%",
+      "Status": "Pass (A)",
+      "Score": 0.88
+    },
+    {
+      "Tier": "Tier 2: Physical Regime",
+      "Parameter": "Weighted F1 Score",
+      "Target": ">= 0.85",
+      "Value": "0.8864",
+      "Status": "Pass (A)",
+      "Score": 0.88
+    },
+    {
+      "Tier": "Tier 2: Physical Regime",
+      "Parameter": "Zero Catastrophic Rigid Error",
+      "Target": "0.0%",
+      "Value": "0.0% (0/321)",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 2: Physical Regime",
+      "Parameter": "Flexible Boundary Leakage",
+      "Target": "< 15.0%",
+      "Value": "9.0% (29/321)",
+      "Status": "Optimal (S)",
+      "Score": 0.95
+    },
+    {
+      "Tier": "Tier 3: Numerical Stability",
+      "Parameter": "Verlet dt >= 20 fs Pass Rate",
+      "Target": ">= 99.0%",
+      "Value": "100.0% (780/780)",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 3: Numerical Stability",
+      "Parameter": "Worst-Case Verlet Limit (dt_min)",
+      "Target": "> 20.0 fs",
+      "Value": "36.29 fs (+81.5% buffer)",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 3: Numerical Stability",
+      "Parameter": "Median Verlet Limit",
+      "Target": ">> 20.0 fs",
+      "Value": "169.23 fs (+746% buffer)",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 3: Numerical Stability",
+      "Parameter": "Integrator Divergence Rate",
+      "Target": "0.0%",
+      "Value": "0.0%",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 4: Statistical Mechanics",
+      "Parameter": "Mean Bond Fluctuation (sigma_r)",
+      "Target": "0.15 - 0.35 A",
+      "Value": "0.188 A (Med: 0.223 A)",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 4: Statistical Mechanics",
+      "Parameter": "Mean Angular Spread (sigma_theta)",
+      "Target": "8.0 - 30.0 deg",
+      "Value": "15.62 deg (Med: 15.30 deg)",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 4: Statistical Mechanics",
+      "Parameter": "Artificial Freezing Avoidance",
+      "Target": "100.0%",
+      "Value": "100.0%",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 4: Statistical Mechanics",
+      "Parameter": "Chain Flaccidity Avoidance (<45 deg)",
+      "Target": ">= 99.0%",
+      "Value": "99.78% (457/458)",
+      "Status": "Optimal (S)",
+      "Score": 0.99
+    },
+    {
+      "Tier": "Tier 5: Operational Deployment",
+      "Parameter": "GROMACS .itp Turnkey Pass Rate",
+      "Target": "100.0%",
+      "Value": "100.0% (122/122)",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 5: Operational Deployment",
+      "Parameter": "Automated Simulation Packaging",
+      "Target": "100.0%",
+      "Value": "100.0%",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    },
+    {
+      "Tier": "Tier 5: Operational Deployment",
+      "Parameter": "Inference Latency per Molecule",
+      "Target": "< 10 ms",
+      "Value": "2.1 ms (CPU)",
+      "Status": "Optimal (S)",
+      "Score": 1.0
+    }
+  ],
+  "Chemical_Family_Stress_Test": [
+    {
+      "Family": "Lipids & Long Chains",
+      "Count": 18,
+      "Med_Angle_MAE": 0.39,
+      "Mean_Bond_MAE": 1592.7,
+      "Min_dt_fs": 38.1,
+      "Pass_Rate": 100.0
+    },
+    {
+      "Family": "Lipids & Surfactants",
+      "Count": 20,
+      "Med_Angle_MAE": 8.51,
+      "Mean_Bond_MAE": 665.8,
+      "Min_dt_fs": 119.2,
+      "Pass_Rate": 100.0
+    },
+    {
+      "Family": "Small Molecules & Heterocycles",
+      "Count": 55,
+      "Med_Angle_MAE": 0.0,
+      "Mean_Bond_MAE": 2683.5,
+      "Min_dt_fs": 37.5,
+      "Pass_Rate": 100.0
+    },
+    {
+      "Family": "Small Metabolites & Aromatics",
+      "Count": 16,
+      "Med_Angle_MAE": 22.43,
+      "Mean_Bond_MAE": 2430.0,
+      "Min_dt_fs": 36.3,
+      "Pass_Rate": 100.0
+    },
+    {
+      "Family": "Polymers & Glycols",
+      "Count": 6,
+      "Med_Angle_MAE": 28.31,
+      "Mean_Bond_MAE": 1119.8,
+      "Min_dt_fs": 133.5,
+      "Pass_Rate": 100.0
+    },
+    {
+      "Family": "Steroids, Sugars & Fused Rings",
+      "Count": 7,
+      "Med_Angle_MAE": 74.82,
+      "Mean_Bond_MAE": 5023.6,
+      "Min_dt_fs": 38.7,
+      "Pass_Rate": 85.7
+    }
+  ],
+  "Tolerance_Band_Matrix": {
+    "Tolerances_kJ_mol_rad2": [
+      "<= 1.0",
+      "<= 2.0",
+      "<= 5.0",
+      "<= 10.0",
+      "<= 15.0",
+      "<= 20.0"
+    ],
+    "Hybrid_Accuracy_pct": [
+      54.2,
+      64.41,
+      69.87,
+      73.58,
+      76.64,
+      79.69
+    ],
+    "General_GNN_Accuracy_pct": [
+      46.1,
+      56.77,
+      64.41,
+      69.65,
+      71.83,
+      74.45
+    ],
+    "P80_GNN_Accuracy_pct": [
+      41.2,
+      53.28,
+      63.1,
+      68.56,
+      71.18,
+      72.71
+    ],
+    "Random_Forest_Accuracy_pct": [
+      48.5,
+      59.2,
+      66.8,
+      71.4,
+      74.2,
+      76.8
+    ]
+  }
+}

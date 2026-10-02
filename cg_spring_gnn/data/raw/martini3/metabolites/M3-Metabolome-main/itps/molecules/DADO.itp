@@ -1,0 +1,71 @@
+; Martini 3 topology for Deoxyadenosine
+; please cite all relevant publications.
+
+[ moleculetype ]
+DADO 1
+
+[ atoms ]
+ 1 SN1   1 DADO ADE1  1 0.0 45.0
+ 2 TN3a  1 DADO ADE2  2 0.0 45.0
+ 3 TN5a  1 DADO ADE3  3 0.0  0.0
+ 4 TP1d  1 DADO ADE4  4 0.0 45.0
+ 5 TN3a  1 DADO ADE5  5 0.0 45.0
+ 6 TC6   1 DADO ADE6  6 0.0  0.0
+ 7 TC3   1 DADO RIB1  7 0.0 54.0
+ 8 TP1   1 DADO RIB2  8 0.0 54.0
+ 9 SN4ar 1 DADO RIB3  9 0.0 54.0
+10 TC4   1 DADO RIB4 10 0.0  0.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+ 1  7 b_D_ADE1_RIB1
+ 7  8 b_D_RIB1_RIB2
+ 7  9 b_D_RIB1_RIB3
+ 8  9 b_D_RIB2_RIB3
+#endif
+
+[ constraints ]
+ 1  2 1 0.268
+ 1  5 1 0.287
+ 2  4 1 0.417
+ 2  5 1 0.353
+ 4  5 1 0.316
+
+#ifndef FLEXIBLE
+ 1  7 c_D_ADE1_RIB1
+ 7  8 c_D_RIB1_RIB2
+ 7  9 c_D_RIB1_RIB3
+ 8  9 c_D_RIB2_RIB3
+#endif
+
+[ angles ]
+ 2  1  7 a_ADE2_ADE1_RIB1
+ 1  7  8 a_D_ADE1_RIB1_RIB2
+ 1  7  9 a_D_ADE1_RIB1_RIB3
+
+[ virtual_sitesn ]
+ 6 2  2  5
+10 1  7  8  9
+
+[ dihedrals ]
+ 1  2  5  4 d_ADE1_ADE2_ADE5_ADE4
+ 1  7  8  9 d_ADE1_RIB1_RIB2_RIB3
+ 2  1  7  9 d_ADE2_ADE1_RIB1_RIB3_1
+ 2  1  7  9 d_ADE2_ADE1_RIB1_RIB3_2
+ 2  1  7  9 d_ADE2_ADE1_RIB1_RIB3_3
+ 2  1  7  9 d_ADE2_ADE1_RIB1_RIB3_4
+ 2  1  7  9 d_ADE2_ADE1_RIB1_RIB3_5
+
+[ virtual_sites3 ]
+ 3  5  2  4 2 0.52 0.373
+
+[ exclusions ]
+ 1  2  3  4  5  6 
+ 1  7  8  9 
+ 2  1  7  8  9 
+ 2  3  4  5  6 
+ 3  4  5  6 
+ 4  5  6 
+ 5  6 
+10  7  8  9 
+

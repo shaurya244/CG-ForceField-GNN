@@ -1,0 +1,31 @@
+; Martini 3 topology for Dihydroxyacetone phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+DHAP 1
+
+[ atoms ]
+1 TP1  1 DHAP ALC1 1  0.0 36.0
+2 SN5a 1 DHAP CO1  2  0.0 54.0
+3 D    1 DHAP P1   3 -2.0 72.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.271 10000
+2 3 1 0.317 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.271
+2 3 1 0.317
+#endif
+
+[ angles ]
+1 2 3 10 104.097 53.305
+
+[ exclusions ]
+1 2 3 
+2 1 3 
+3 1 2 
+

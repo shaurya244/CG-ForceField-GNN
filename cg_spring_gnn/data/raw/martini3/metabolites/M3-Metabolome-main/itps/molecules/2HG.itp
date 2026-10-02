@@ -1,0 +1,29 @@
+; Martini 3 topology for 2-hydroxyglutarate
+; please cite all relevant publications.
+
+[ moleculetype ]
+2HG 1
+
+[ atoms ]
+1 SQ5n 1 2HG CAC1 1 -1.0 
+2 TP1  1 2HG ALC1 2  0.0 
+3 TC1  1 2HG C1   3  0.0 
+4 SQ5n 1 2HG CAC2 4 -1.0 
+
+[ bonds ]
+1 2 1 0.253 10000
+2 3 1 0.240 10000
+3 4 1 0.232 10000
+
+[ angles ]
+1 2 3 10 86.331 100
+2 3 4 1 161.159 50
+
+[ dihedrals ]
+1 2 3 4 1 20 1 1
+
+[ exclusions ]
+1 2 3 4 
+2 3 4 
+3 4 
+

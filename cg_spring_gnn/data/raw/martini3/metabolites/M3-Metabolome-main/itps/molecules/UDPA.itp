@@ -1,0 +1,88 @@
+; Martini 3 topology for UDP-galactose
+; please cite all relevant publications.
+
+[ moleculetype ]
+UDPA 1
+
+[ atoms ]
+ 1 SN1   1 UDPA URA1  1  0.0 45.0
+ 2 TP1a  1 UDPA URA2  2  0.0 45.0
+ 3 TN5d  1 UDPA URA3  3  0.0  0.0
+ 4 TP1a  1 UDPA URA4  4  0.0 45.0
+ 5 TC5   1 UDPA URA5  5  0.0  0.0
+ 6 TC3   1 UDPA RIB1  6  0.0 54.0
+ 7 TP1   1 UDPA RIB2  7  0.0 54.0
+ 8 SN4ar 1 UDPA RIB3  8  0.0 54.0
+ 9 TC4   1 UDPA RIB4  9  0.0  0.0
+10 Q5n   1 UDPA P1   10 -1.0 72.0
+11 Q5n   1 UDPA P2   11 -1.0 72.0
+12 SN6   1 UDPA GAL1 12  0.0     
+13 SP4r  1 UDPA GAL2 13  0.0     
+14 SP1r  1 UDPA GAL3 14  0.0     
+15 TC4   1 UDPA GAL4 15  0.0  0.0
+
+[ bonds ]
+ 1  6 b_URA1_RIB1
+ 6  7 b_RIB1_RIB2
+12 13 1 0.276 18000
+12 14 1 0.463 18000
+13 14 1 0.344 18000
+
+#ifdef FLEXIBLE
+ 6  8 b_RIB1_RIB3
+ 7  8 b_RIB2_RIB3
+ 8 10 b_RIB3_P1
+10 11 b_P1_P2
+11 12 1 0.294 10000
+#endif
+
+[ constraints ]
+ 1  2 1 0.290
+ 1  4 1 0.374
+ 2  4 1 0.451
+
+#ifndef FLEXIBLE
+ 6  8 c_RIB1_RIB3
+ 7  8 c_RIB2_RIB3
+ 8 10 c_RIB3_P1
+10 11 c_P1_P2
+11 12 1 0.294
+#endif
+
+[ angles ]
+ 2  1  6 a_URA2_URA1_RIB1
+ 1  6  7 a_URA1_RIB1_RIB2
+ 1  6  8 a_URA1_RIB1_RIB3
+ 6  8 10 a_RIB1_RIB3_P1
+ 8 10 11 a_RIB3_P1_P2
+10 11 12 10 135.431 101.818
+11 12 13 10 138.829 115.705
+11 12 14 10 91.912 150
+
+[ virtual_sitesn ]
+ 5 2  1  4
+ 3 2  2  4
+ 9 1  6  7  8
+15 1 12 13 14
+
+[ dihedrals ]
+ 1  2  4  5 2 0.0 100.0
+ 1  6  7  8 d_URA1_RIB1_RIB2_RIB3
+ 1  6  8 10 d_URA1_RIB1_RIB3_P1
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_1
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_2
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_3
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_4
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_5
+ 6  8 10 11 d_RIB1_RIB3_P1_P2
+ 8 10 11 12 9 33.648 -3.898 1
+
+[ exclusions ]
+ 1  2  3  4  5 
+ 2  3  4  5 
+ 3  4  5 
+ 4  5 
+ 9  6  7  8 
+11 12 13 14 15 
+15 12 13 14 
+

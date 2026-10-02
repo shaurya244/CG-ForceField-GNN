@@ -1,0 +1,96 @@
+{
+  "k_angle": {
+    "Target": "k_angle",
+    "Unit": "kJ/mol/rad^2",
+    "Linear_R2": 0.9211,
+    "Log_R2": 0.8532,
+    "RMSE": 31.9132,
+    "MAE": 12.4217,
+    "MedAE": 0.4967,
+    "Max_Error": 286.1608,
+    "MAPE_percent": 16.24,
+    "Pearson_r": 0.9612,
+    "Spearman_rho": 0.8886,
+    "Acc_pm_2": 64.41,
+    "Acc_pm_5": 69.87,
+    "Acc_pm_10": 73.58,
+    "Acc_pm_15": 76.64,
+    "Acc_pm_20": 79.69
+  },
+  "k_bond": {
+    "Target": "k_bond",
+    "Unit": "kJ/mol/nm^2",
+    "Linear_R2": 0.9398,
+    "Log_R2": 0.9477,
+    "RMSE": 5072.5753,
+    "MAE": 1880.1526,
+    "MedAE": 399.0648,
+    "Max_Error": 40544.5391,
+    "MAPE_percent": 14.32,
+    "Pearson_r": 0.9697,
+    "Spearman_rho": 0.8791,
+    "Acc_pm_2": 0.0,
+    "Acc_pm_5": 0.13,
+    "Acc_pm_10": 0.51,
+    "Acc_pm_15": 0.77,
+    "Acc_pm_20": 1.03
+  },
+  "r0": {
+    "Target": "r0",
+    "Unit": "nm",
+    "Linear_R2": 0.4777,
+    "Log_R2": 0.5609,
+    "RMSE": 0.0659,
+    "MAE": 0.0367,
+    "MedAE": 0.0187,
+    "Max_Error": 0.5786,
+    "MAPE_percent": 9.27,
+    "Pearson_r": 0.6926,
+    "Spearman_rho": 0.7801,
+    "Acc_pm_2": 100.0,
+    "Acc_pm_5": 100.0,
+    "Acc_pm_10": 100.0,
+    "Acc_pm_15": 100.0,
+    "Acc_pm_20": 100.0
+  },
+  "theta0": {
+    "Target": "theta0",
+    "Unit": "degrees",
+    "Linear_R2": 0.6607,
+    "Log_R2": 0.0728,
+    "RMSE": 20.3996,
+    "MAE": 9.4116,
+    "MedAE": 3.9708,
+    "Max_Error": 313.5154,
+    "MAPE_percent": 9.02,
+    "Pearson_r": 0.8208,
+    "Spearman_rho": 0.8375,
+    "Acc_pm_2": 37.34,
+    "Acc_pm_5": 56.77,
+    "Acc_pm_10": 70.31,
+    "Acc_pm_15": 77.29,
+    "Acc_pm_20": 83.84
+  },
+  "classification": {
+    "accuracy": 88.43,
+    "macro_f1": 0.8629,
+    "weighted_f1": 0.8864,
+    "confusion_matrix": [
+      [
+        292,
+        29,
+        0
+      ],
+      [
+        18,
+        89,
+        0
+      ],
+      [
+        2,
+        4,
+        24
+      ]
+    ]
+  }
+}

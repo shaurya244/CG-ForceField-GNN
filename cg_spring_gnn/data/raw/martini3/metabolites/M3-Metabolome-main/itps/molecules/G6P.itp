@@ -1,0 +1,39 @@
+; Martini 3 topology for D-Glucose 6-phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+G6P 1
+
+[ atoms ]
+1 SP4r  1 G6P GLU1 1  0.0 54.0
+2 SP4r  1 G6P GLU2 2  0.0 54.0
+3 SN4ar 1 G6P GLU3 3  0.0 54.0
+4 D     1 G6P P1   4 -2.0     
+5 TC4   1 G6P GLU4 5  0.0  0.0
+
+[ bonds ]
+3 4 1 0.330 15000
+
+#ifdef FLEXIBLE
+1 2 1 0.339 10000
+1 3 1 0.374 10000
+2 3 1 0.322 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.339
+1 3 1 0.374
+2 3 1 0.322
+#endif
+
+[ angles ]
+1 3 4 2 143.5 173
+2 3 4 2 90.0 40
+
+[ virtual_sitesn ]
+5 1 1 2 3
+
+[ exclusions ]
+5 1 2 3 4 
+

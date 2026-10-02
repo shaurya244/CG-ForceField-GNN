@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "n_molecules": 122,
+    "n_bonds": 780,
+    "n_angles": 458,
+    "temperature_kelvin": 300.0,
+    "k_B_T_kJ_mol": 2.4943387854
+  },
+  "bonds": {
+    "bhattacharyya_mean": 0.6188399362469064,
+    "bhattacharyya_median": 0.8377435066448675,
+    "wasserstein1_angstrom_mean": 0.36636712001070215,
+    "wasserstein1_angstrom_median": 0.18872176963338122,
+    "kl_divergence_kbt_mean": 6.353148380544271,
+    "percent_bc_gte_90": 45.8974358974359
+  },
+  "angles_hybrid": {
+    "bhattacharyya_mean": 0.874688302648016,
+    "bhattacharyya_median": 0.9947900134825091,
+    "wasserstein1_deg_mean": 8.1751900549417,
+    "wasserstein1_deg_median": 3.0547017500358327,
+    "kl_divergence_kbt_mean": 0.9957843385712314,
+    "percent_bc_gte_90": 71.39737991266377,
+    "percent_bc_gte_80": 77.07423580786026
+  },
+  "angles_gnn": {
+    "bhattacharyya_mean": 0.8737461395768467,
+    "wasserstein1_deg_mean": 8.159225862434837
+  },
+  "chemical_families": [
+    {
+      "Family": "Lipids & Surfactants",
+      "Bond_Count": 180,
+      "Angle_Count": 155,
+      "Bond_BC_Mean": 0.8334097415150319,
+      "Bond_W1_Ang": 0.24140636842391477,
+      "Angle_BC_Mean": 0.9014742511705329,
+      "Angle_W1_Deg": 7.210983198734527,
+      "Angle_BC_gte_90_pct": 74.83870967741936
+    },
+    {
+      "Family": "Small Molecules & Heterocycles",
+      "Bond_Count": 452,
+      "Angle_Count": 226,
+      "Bond_BC_Mean": 0.5892075845961275,
+      "Bond_W1_Ang": 0.3373148566023818,
+      "Angle_BC_Mean": 0.9360442450441534,
+      "Angle_W1_Deg": 4.405547932900224,
+      "Angle_BC_gte_90_pct": 84.070796460177
+    },
+    {
+      "Family": "Small Metabolites & Aromatics",
+      "Bond_Count": 52,
+      "Angle_Count": 23,
+      "Bond_BC_Mean": 0.5443105301237403,
+      "Bond_W1_Ang": 0.43000876027565904,
+      "Angle_BC_Mean": 0.6625536504896814,
+      "Angle_W1_Deg": 19.16771120054072,
+      "Angle_BC_gte_90_pct": 21.73913043478261
+    },
+    {
+      "Family": "Polymers & Glycols",
+      "Bond_Count": 44,
+      "Angle_Count": 38,
+      "Bond_BC_Mean": 0.5654396636193092,
+      "Bond_W1_Ang": 0.5584101083255851,
+      "Angle_BC_Mean": 0.7347477193496962,
+      "Angle_W1_Deg": 16.32051614919634,
+      "Angle_BC_gte_90_pct": 34.21052631578947
+    },
+    {
+      "Family": "Steroids, Sugars & Fused Rings",
+      "Bond_Count": 52,
+      "Angle_Count": 16,
+      "Bond_BC_Mean": 0.25338607301437355,
+      "Bond_W1_Ang": 0.8253152270597391,
+      "Angle_BC_Mean": 0.38584918780180544,
+      "Angle_W1_Deg": 35.6152403276312,
+      "Angle_BC_gte_90_pct": 18.75
+    }
+  ]
+}

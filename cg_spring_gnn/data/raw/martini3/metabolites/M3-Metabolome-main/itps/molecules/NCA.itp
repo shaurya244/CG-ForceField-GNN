@@ -1,0 +1,34 @@
+; Martini 3 topology for nicotinamide
+; please cite all relevant publications.
+
+[ moleculetype ]
+NCA 1
+
+[ atoms ]
+1 SP5  1 NCA AMD1 1 0.0 54.0
+2 TC5  1 NCA ARO1 2 0.0 36.0
+3 TC5  1 NCA ARO2 3 0.0 36.0
+4 TN6a 1 NCA ARO3 4 0.0 36.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.254 10000
+2 3 1 0.199 10000
+2 4 1 0.183 10000
+3 4 1 0.204 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.254
+2 3 1 0.199
+4 2 1 0.183
+3 4 1 0.204
+#endif
+
+[ angles ]
+1 2 3 10 135.573 200
+
+[ dihedrals ]
+1 2 3 4 2 -179.622 20
+

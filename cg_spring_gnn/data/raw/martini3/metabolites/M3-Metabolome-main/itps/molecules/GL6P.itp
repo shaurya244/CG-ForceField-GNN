@@ -1,0 +1,48 @@
+; Martini 3 topology for D-Glucosamine 6-phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+GL6P 1
+
+[ atoms ]
+1 TP1   1 GL6P GLU1 1  0.0 36.0
+2 TQ4p  1 GL6P GLU2 2  1.0 36.0
+3 SP4r  1 GL6P GLU3 3  0.0 54.0
+4 SN4ar 1 GL6P GLU4 4  0.0 54.0
+5 D     1 GL6P P1   5 -2.0     
+6 TC4   1 GL6P GLU5 6  0.0  0.0
+
+[ bonds ]
+1 2 1 0.280 15000
+1 4 1 0.335 10000
+2 3 1 0.341 15000
+3 4 1 0.305 15000
+
+#ifdef FLEXIBLE
+4 5 1 0.330 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+4 5 1 0.330
+#endif
+
+[ angles ]
+2 1 4 2 102 729
+1 2 3 2 83 949
+2 3 4 2 95 731
+1 4 3 2 79 1735
+1 4 5 2 140 104
+3 4 5 2 90 37
+
+[ dihedrals ]
+1 2 3 4 1 178 104 1
+2 1 4 5 1 -92 1.35 1
+2 3 4 5 1 15 13.5 1
+
+[ virtual_sitesn ]
+6 1 1 2 3 4
+
+[ exclusions ]
+6 1 2 3 4 5 
+

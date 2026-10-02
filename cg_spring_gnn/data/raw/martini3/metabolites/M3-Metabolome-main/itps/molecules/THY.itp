@@ -1,0 +1,30 @@
+; Martini 3 topology for Thymine
+; please cite all relevant publications.
+
+[ moleculetype ]
+THY 1
+
+[ atoms ]
+1 SN1  1 THY THY1 1 0.0 57.0
+2 TP1a 1 THY THY2 2 0.0 57.0
+3 TN5d 1 THY THY3 3 0.0  0.0
+4 TP1a 1 THY THY4 4 0.0 57.0
+5 TC2  1 THY THY5 5 0.0  0.0
+
+[ constraints ]
+1 2 1 0.286
+1 4 1 0.371
+2 4 1 0.449
+
+[ virtual_sitesn ]
+3 2 2 4
+
+[ virtual_sites3 ]
+5 2 1 4 2 0.401 0.418
+
+[ exclusions ]
+1 2 3 4 5 
+2 3 4 5 
+3 4 5 
+4 5 
+

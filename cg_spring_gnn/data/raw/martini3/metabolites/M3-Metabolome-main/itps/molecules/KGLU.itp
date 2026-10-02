@@ -1,0 +1,37 @@
+; Martini 3 topology for alpha-ketoglutarate
+; please cite all relevant publications.
+
+[ moleculetype ]
+KGLU 1
+
+[ atoms ]
+1 SQ5n 1 KGLU CAC1 1 -1.0 
+2 TN5a 1 KGLU CO1  2  0.0 
+3 TC1  1 KGLU C1   3  0.0 
+4 SQ5n 1 KGLU CAC2 4 -1.0 
+
+[ bonds ]
+2 3 1 0.218 10000
+3 4 1 0.227 10000
+
+#ifdef FLEXIBLE
+1 2 1 0.229 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.229
+#endif
+
+[ angles ]
+1 2 3 1 105.654 300
+2 3 4 1 140 50
+
+[ dihedrals ]
+1 2 3 4 1 0 2 1
+
+[ exclusions ]
+1 2 3 4 
+2 3 4 
+3 4 
+

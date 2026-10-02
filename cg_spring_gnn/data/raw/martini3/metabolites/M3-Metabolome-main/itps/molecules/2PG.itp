@@ -1,0 +1,22 @@
+; Martini 3 topology for 2PG
+; please cite all relevant publications.
+
+[ moleculetype ]
+2PG 1
+
+[ atoms ]
+1 D    1 2PG P1   1 -2.0 72.0
+2 SP1  1 2PG ALC1 2  0.0 54.0
+3 SQ5n 1 2PG CAC1 3 -1.0 54.0
+
+[ bonds ]
+1 2 1 0.302 15000
+2 3 1 0.279 15000
+
+[ angles ]
+1 2 3 10 91.186 500
+
+[ exclusions ]
+1 2 3 
+2 3 
+

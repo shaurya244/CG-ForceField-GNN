@@ -1,0 +1,23 @@
+; Martini 3 topology for succinate
+; please cite all relevant publications.
+
+[ moleculetype ]
+SUCC 1
+
+[ atoms ]
+1 SQ5n 1 SUCC CAC1 1 -1.0 54.0
+2 TC1  1 SUCC C1   2  0.0 36.0
+3 SQ5n 1 SUCC CAC2 3 -1.0 54.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.234 10000
+2 3 1 0.234 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.234
+2 3 1 0.234
+#endif
+

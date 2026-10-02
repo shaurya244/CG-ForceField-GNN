@@ -1,0 +1,28 @@
+; Martini 3 topology for D-Erythrose 4-phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+E4P 1
+
+[ atoms ]
+1 TN5a 1 E4P CO1  1  0.0 
+2 TP1  1 E4P ALC1 2  0.0 
+3 SP1  1 E4P ALC2 3  0.0 
+4 D    1 E4P P1   4 -2.0 
+
+[ bonds ]
+1 2 1 0.230 25000
+2 3 1 0.265 12799
+3 4 1 0.290 15000
+
+[ angles ]
+1 2 3 2 92 400
+2 3 4 2 97 100
+
+[ exclusions ]
+1 2 3 
+2 3 4 
+
+[ dihedrals ]
+1 2 3 4 1 35 10 1
+

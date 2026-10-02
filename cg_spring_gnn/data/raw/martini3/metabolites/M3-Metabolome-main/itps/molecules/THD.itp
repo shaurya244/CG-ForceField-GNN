@@ -1,0 +1,65 @@
+; Martini 3 topology for Thymidine
+; please cite all relevant publications.
+
+[ moleculetype ]
+THD 1
+
+[ atoms ]
+1 SN1   1 THD THY1 1 0.0 57.0
+2 TP1a  1 THD THY2 2 0.0 57.0
+3 TN5d  1 THD THY3 3 0.0  0.0
+4 TP1a  1 THD THY4 4 0.0 57.0
+5 TC2   1 THD THY5 5 0.0  0.0
+6 TC3   1 THD RIB1 6 0.0 54.0
+7 TP1   1 THD RIB2 7 0.0 54.0
+8 SN4ar 1 THD RIB3 8 0.0 54.0
+9 TC4   1 THD RIB4 9 0.0  0.0
+
+[ bonds ]
+1 6 b_THY1_RIB1
+
+#ifdef FLEXIBLE
+6 7 b_D_RIB1_RIB2
+6 8 b_D_RIB1_RIB3
+7 8 b_D_RIB2_RIB3
+#endif
+
+[ constraints ]
+1 2 1 0.286
+1 4 1 0.371
+2 4 1 0.449
+
+#ifndef FLEXIBLE
+6 7 c_D_RIB1_RIB2
+6 8 c_D_RIB1_RIB3
+7 8 c_D_RIB2_RIB3
+#endif
+
+[ angles ]
+2 1 6 a_THY2_THY1_RIB1
+5 1 6 a_THY5_THY1_RIB1
+1 6 7 a_THY1_RIB1_RIB2
+1 6 8 a_THY1_RIB1_RIB3
+
+[ virtual_sitesn ]
+3 2 2 4
+9 1 6 7 8
+
+[ dihedrals ]
+1 6 7 8 d_THY1_RIB1_RIB2_RIB3
+2 1 6 8 d_THY2_THY1_RIB1_RIB3
+5 1 6 8 d_THY5_THY1_RIB1_RIB3
+
+[ virtual_sites3 ]
+5 2 1 4 2 0.401 0.418
+
+[ exclusions ]
+1 2 3 4 5 6 7 8 9 
+2 3 4 5 6 7 8 9 
+3 4 5 6 7 8 9 
+4 5 6 7 8 9 
+5 6 7 8 9 
+6 7 8 9 
+7 8 9 
+8 9 
+

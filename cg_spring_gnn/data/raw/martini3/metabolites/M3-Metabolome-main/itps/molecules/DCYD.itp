@@ -1,0 +1,62 @@
+; Martini 3 topology for Deoxycytidine
+; please cite all relevant publications.
+
+[ moleculetype ]
+DCYD 1
+
+[ atoms ]
+1 SN1   1 DCYD CYO1 1 0.0 45.0
+2 TP1a  1 DCYD CYO2 2 0.0 45.0
+3 TN5a  1 DCYD CYO3 3 0.0  0.0
+4 TP1d  1 DCYD CYO4 4 0.0 45.0
+5 TC3   1 DCYD RIB1 5 0.0 54.0
+6 TP1   1 DCYD RIB2 6 0.0 54.0
+7 SN4ar 1 DCYD RIB3 7 0.0 54.0
+8 TC4   1 DCYD RIB4 8 0.0  0.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 5 b_D_CYO1_RIB1
+5 6 b_D_RIB1_RIB2
+5 7 b_D_RIB1_RIB3
+6 7 b_D_RIB2_RIB3
+#endif
+
+[ constraints ]
+1 2 1 0.255
+1 4 1 0.340
+2 4 1 0.412
+
+#ifndef FLEXIBLE
+1 5 c_D_CYO1_RIB1
+5 6 c_D_RIB1_RIB2
+5 7 c_D_RIB1_RIB3
+6 7 c_D_RIB2_RIB3
+#endif
+
+[ angles ]
+2 1 5 a_CYO2_CYO1_RIB1
+4 1 5 a_CYO4_CYO1_RIB1
+1 5 6 a_D_CYO1_RIB1_RIB2
+1 5 7 a_D_CYO1_RIB1_RIB3
+
+[ virtual_sitesn ]
+3 2 2 4
+8 1 5 6 7
+
+[ dihedrals ]
+1 5 6 7 d_CYO1_RIB1_RIB2_RIB3
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_1
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_2
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_3
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_4
+2 1 5 7 d_CYO2_CYO1_RIB1_RIB3_5
+
+[ exclusions ]
+1 2 3 4 
+1 5 6 7 
+2 1 5 6 7 
+2 3 4 
+3 4 
+8 5 6 7 
+

@@ -1,0 +1,45 @@
+; Martini 3 topology for methylcitrate
+; please cite all relevant publications.
+
+[ moleculetype ]
+MCIT 1
+
+[ atoms ]
+1 SQ5n 1 MCIT CAC1 1 -1.0 
+2 TC2  1 MCIT C1   2  0.0 
+3 SP1  1 MCIT ALC1 3  0.0 
+4 SQ5n 1 MCIT CAC2 4 -1.0 
+5 SQ5n 1 MCIT CAC3 5 -1.0 
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.251 10000
+2 3 1 0.292 10000
+3 4 1 0.248 10000
+3 5 1 0.277 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.251
+2 3 1 0.292
+3 4 1 0.248
+3 5 1 0.277
+#endif
+
+[ angles ]
+1 2 3 10 57.586 600
+2 3 4 10 150.683 150
+2 3 5 10 65.925 600
+4 3 5 10 85.289 150
+
+[ dihedrals ]
+1 2 3 4 2 157.334 75.322
+1 2 3 5 2 164.324 213.27
+
+[ exclusions ]
+1 2 3 4 5 
+2 3 4 5 
+3 4 5 
+4 5 
+

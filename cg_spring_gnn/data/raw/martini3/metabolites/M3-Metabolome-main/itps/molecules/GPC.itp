@@ -1,0 +1,28 @@
+; Martini 3 topology for glycerophosphocholine
+; please cite all relevant publications.
+
+[ moleculetype ]
+GPC 1
+
+[ atoms ]
+1 Q2  1 GPC NC3  1  1.0 72.0
+2 TC2 1 GPC C1   2  0.0 36.0
+3 Q5  1 GPC P1   3 -1.0 72.0
+4 SP1 1 GPC ALC1 4  0.0 54.0
+5 TP1 1 GPC ALC2 5  0.0 36.0
+
+[ bonds ]
+1 2 1 0.267 10000
+2 3 1 0.327 10000
+3 4 1 0.353 9545.397
+4 5 1 0.257 10000
+
+[ angles ]
+1 2 3 10 115.113 61.159
+2 3 4 10 103.405 41.855
+3 4 5 10 95.506 50.609
+
+[ dihedrals ]
+1 2 3 4 2 -176.872 0.261
+2 3 4 5 2 -176.299 0.261
+

@@ -1,0 +1,1001 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Martini 3 steroid hormone topologies
+;
+; If you use these models, be sure to cite:
+; T.Z. Madaloz, K. dos Santos, F. Mustan, F. Neiva Nunes, G. Razzera, M.N. Melo
+; Martini 3 Coarse-Grained Models for Steroid Hormones
+; doi:10.26434/chemrxiv.15002998
+;
+; These parameters should be considered in _open-beta_ stage until a
+; peer-reviewed publication is final.
+
+; Include Bead types
+#define bt_17_carbonyl TP2a
+#define bt_3_carbonyl  SP2a
+#define bt_hydroxyacetyl  P4
+#define bt_hemiacetal  SP4
+#define bt_19_methyl  TC2
+#define bt_18_methyl  TC2
+#define bt_acetyl  SN6a
+#define bt_17_hydroxyl  TP1
+#define bt_11_carbonyl  SP1a
+#define bt_11_hydroxyl  SP1
+#define bt_3_hydroxyl_estrin  SP1
+#define bt_3_hydroxyl  SP1
+#define bt_ring_AB_R1_4ene  SC5
+#define bt_ring_AB_R1_tAndrostane  SC3
+#define bt_ring_AB_R2_4ene  SC3
+#define bt_ring_AB_R2_tAndrostane  SC3
+#define bt_ring_AB_R1  SC4
+#define bt_ring_AB_R2  SC3
+#define bt_ring_AB_R1_estrin  SC4
+#define bt_ring_AB_R2_estrin  SC4
+#define bt_ring_D  SC3
+#define bt_ring_C  SC3
+#define bt_3_carbonyl_tAndrostane  SP1a
+#define bt_ring_AB_R2_1ene  SC4
+#define bt_ethinyl  TN2
+#define bt_ethanediol  SP5
+
+; Include Virtual Sites
+#define vs_17_carbonyl  -0.02635 0.19267 -0.13672   
+#define vs_ring_D  -0.41067 0.83597 -0.05311
+#define vs_ring_C  0.69138 -0.10352 0.17476
+#define vs_19_methyl  0.77524 0.22413 0.927
+#define vs_18_methyl  0.06219 0.32398 0.76967
+#define vs_17_hydroxyl_equatorial  -0.07432 0.21429 0.02593
+#define vs_17_hydroxyl_axial  -0.00353 0.25533 -0.4488
+#define vs_3_hydroxyl  1.08999 0.35891 0.22947
+#define vs_11_hydroxyl_carbonyl  0.77084 -0.1447 0.38922
+#define vs_3_hydroxyl_estrin  1.12815 0.27097 0.66232
+#define vs_ring_AB_R2_estrin  0.95958 -0.01132 0.17961
+#define vs_ethanediol  -0.36165 0.53725 -0.19243 
+#define vs_ethinyl  0.10309 0.17699 -1.02145
+
+; Include Constraints
+#define c_frame_1 0.75012 
+#define c_frame_2 0.78504 
+#define c_frame_3 0.34797 
+
+; Include Bonds
+#define b_RO_R1 0.430  10000  
+#define b_RO_R2 0.325  10000  
+#define b_C1_F3  0.060  10000  
+#define b_C1_R6  0.350  10000
+#define b_C1_C2  0.270  10000
+
+; Include Angle
+#define a_C1_R1_R2  68.98   250 
+
+; Include Dihedrals
+#define d_RO_R2_R1_F3   175.0    50
+#define d_C1_R1_R2_F3     2.93    50
+#define d_R1_R3_R4_R6    120.0    60
+
+;;;; ALDOSTERONE
+
+[ moleculetype ]
+  AS4   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     AS4   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     AS4   R1    2     0     100.95
+  3   bt_ring_AB_R2_4ene   0     AS4   R2    3     0     94.04
+  4   bt_ring_D   0     AS4   R3    4     0     0    
+  5   bt_ring_C   0     AS4   R4    5     0     0    
+  6   bt_19_methyl   0     AS4   R5    6     0     0    
+  7   bt_hemiacetal   0     AS4   R6    7     0         
+  8   bt_hydroxyacetyl    0     AS4   C1    8     0    
+  9   U     0     AS4   F3    8     0     57.01
+
+[ virtual_sites3 ]
+  4   9   3   2   4     vs_ring_D
+  5   9   3   2   4     vs_ring_C
+  6   9   3   2   4     vs_19_methyl
+
+[ constraints ]
+  9   3   1     c_frame_1
+  9   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1
+  1   3   1     b_RO_R2
+  8   9   1     b_C1_F3
+  7   4   1     0.320   5000
+  7   5   1     0.240  10000
+
+[ pairs ]
+; i   j  funct   sigma  epsilon
+  7   8   1      0.23   5.0
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   9   2     d_RO_R2_R1_F3 
+  2   4   5   7   2     d_R1_R3_R4_R6   
+
+[ exclusions ]
+  2   3   4   5   6   9
+  3   4   5   6   9  
+  4   5   6   9  
+  5   6   8   9  
+  6   7   9  
+  7   8   9  
+
+
+;;;; ANDROSTENEDIOL
+
+[ moleculetype ]
+  B81   1    
+
+[ atoms ]
+  1   bt_3_hydroxyl   0     B81   ROH   1     0     0    
+  2   bt_ring_AB_R1   0     B81   R1    2     0     148.55
+  3   bt_ring_AB_R2   0     B81   R2    3     0     176.76
+  4   bt_ring_D   0     B81   R3    4     0     0    
+  5   bt_ring_C   0     B81   R4    5     0     0    
+  6   bt_19_methyl   0     B81   R5    6     0     0    
+  7   bt_18_methyl   0     B81   R6    7     0     0    
+  8   bt_17_hydroxyl   0     B81   C1    8     0     0    
+  9   U     0     B81   F3    8     0     70.68
+
+[ virtual_sites3 ]
+  1   9   3   2   4     vs_3_hydroxyl
+  4   9   3   2   4     vs_ring_D
+  5   9   3   2   4     vs_ring_C
+  6   9   3   2   4     vs_19_methyl
+  7   9   3   2   4     vs_18_methyl
+  8   9   3   2   4     vs_17_hydroxyl_equatorial
+
+[ constraints ]
+  9   3   1     c_frame_1
+  9   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ exclusions ]
+  1   2   3   4   5   6   7   8   9  
+  2   3   4   5   6   7   8   9  
+  3   4   5   6   7   8   9
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+  8   9  
+
+
+;;;; ANDROSTENEDIONE 
+
+[ moleculetype ]
+  ASD   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     ASD   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     ASD   R1    2     0     117.77
+  3   bt_ring_AB_R2_4ene   0     ASD   R2    3     0     100.06
+  4   bt_ring_D   0     ASD   R3    4     0     0    
+  5   bt_ring_C   0     ASD   R4    5     0     0    
+  6   bt_19_methyl   0     ASD   R5    6     0     0    
+  7   bt_18_methyl   0     ASD   R6    7     0     0    
+  8   bt_17_carbonyl  0     ASD   C1    8     0     0    
+  9   U     0     ASD   F3    8     0     106.17
+
+[ virtual_sites3 ]
+  4   9   3   2   4     vs_ring_D
+  5   9   3   2   4     vs_ring_C
+  6   9   3   2   4     vs_19_methyl
+  7   9   3   2   4     vs_18_methyl
+  8   9   3   2   4     vs_17_carbonyl
+
+[ constraints ]
+  9   3   1     c_frame_1
+  9   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1 
+  1   3   1     b_RO_R2  
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   4   2     d_RO_R2_R1_F3  
+
+[ exclusions ]
+  2   3   4   5   6   7   8   9  
+  3   4   5   6   7   8   9
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+  8   9  
+
+
+;;;; CORTICOSTERONE
+
+[ moleculetype ]
+  C0R   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     C0R   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     C0R   R1    2     0     110.75
+  3   bt_ring_AB_R2_4ene   0     C0R   R2    3     0     104.59
+  4   bt_ring_D   0     C0R   R3    4     0     0    
+  5   bt_11_hydroxyl   0     C0R   R4    5     0     0    
+  6   bt_19_methyl   0     C0R   R5    6     0     0    
+  7   bt_18_methyl   0     C0R   R6    7     0     0    
+  8   bt_hydroxyacetyl    0     C0R   C1    8     0    
+  9   U     0     C0R   F3    8     0     72.66
+
+[ virtual_sites3 ]
+  4   9   3   2   4     vs_ring_D
+  5   9   3   2   4     vs_11_hydroxyl_carbonyl
+  6   9   3   2   4     vs_19_methyl
+  7   9   3   2   4     vs_18_methyl
+
+[ constraints ]
+  9   3   1     c_frame_1
+  9   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1  
+  1   3   1     b_RO_R2 
+  8   9   1     b_C1_F3 
+  8   7   1     b_C1_R6
+
+[ angles ]
+; i   j   k  funct  angle  force 
+  8   2   3   1     a_C1_R1_R2 
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   9   2     d_RO_R2_R1_F3
+  8   2   3   9   2     d_C1_R1_R2_F3 
+
+[ exclusions ]
+  2   3   4   5   6   7   9  
+  3   4   5   6   7   9
+  4   5   6   7   9  
+  5   6   7   9  
+  6   7   9  
+  7   9  
+
+
+;;;; CORTISOL
+
+[ moleculetype ]
+  HCY   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     HCY   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     HCY   R1    2     0     100.89
+  3   bt_ring_AB_R2_4ene   0     HCY   R2    3     0     116.55
+  4   bt_ring_D   0     HCY   R3    4     0     0    
+  5   bt_11_hydroxyl   0     HCY   R4    5     0     0    
+  6   bt_19_methyl   0     HCY   R5    6     0     0    
+  7   bt_18_methyl   0     HCY   R6    7     0     0    
+  8   bt_hydroxyacetyl    0     HCY   C1    8     0         
+  9   bt_17_hydroxyl   0     HCY   C2    9     0     0
+  10  U     0     HCY   F3    9     0     142.56
+
+[ virtual_sites3 ]
+  4   10  3   2   4     vs_ring_D
+  5   10  3   2   4     vs_11_hydroxyl_carbonyl
+  6   10  3   2   4     vs_19_methyl
+  7   10  3   2   4     vs_18_methyl
+  9   10  3   2   4     vs_17_hydroxyl_axial
+
+[ constraints ]
+  10  3   1     c_frame_1
+  10  2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1 
+  1   3   1     b_RO_R2 
+  8   7   1     b_C1_R6  
+  8   9   1     b_C1_C2  
+  8   10  1     b_C1_F3  
+
+[ angles ]
+; i   j   k  funct  angle  force 
+  8   2   3   1     a_C1_R1_R2  
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   10   2     d_RO_R2_R1_F3 
+  8   2   3   10   2     d_C1_R1_R2_F3  
+
+[ exclusions ]
+  2   3   4   5   6   7   9   10  
+  3   4   5   6   7   9   10  
+  4   5   6   7   9   10 
+  5   6   7   9   10 
+  6   7   9   10 
+  7   9   10 
+  9   10 
+
+
+;;;; CORTISONE
+
+[ moleculetype ]
+  UQC   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     UQC   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     UQC   R1    2     0     112.35
+  3   bt_ring_AB_R2_4ene   0     UQC   R2    3     0     113.21
+  4   bt_ring_D   0     UQC   R3    4     0     0    
+  5   bt_11_carbonyl  0     UQC   R4    5     0     0    
+  6   bt_19_methyl   0     UQC   R5    6     0     0    
+  7   bt_18_methyl   0     UQC   R6    7     0     0    
+  8   bt_hydroxyacetyl    0     UQC   C1    8     0    
+  9   bt_17_hydroxyl   0     UQC   C2    8     0     0    
+  10  U     0     UQC   F3    8     0     98.44
+
+[ virtual_sites3 ]
+  4   10  3   2   4     vs_ring_D
+  5   10  3   2   4     vs_11_hydroxyl_carbonyl
+  6   10  3   2   4     vs_19_methyl
+  7   10  3   2   4     vs_18_methyl
+  9   10  3   2   4     vs_17_hydroxyl_axial
+
+[ constraints ]
+  10  3   1     c_frame_1
+  10  2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1 
+  1   3   1     b_RO_R2 
+  8   7   1     b_C1_R6  
+  8   9   1     b_C1_C2  
+  8   10  1     b_C1_F3  
+
+[ angles ]
+; i   j   k  funct  angle  force 
+  8   2   3   1     a_C1_R1_R2 
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   9   2     d_RO_R2_R1_F3
+  8   2   3   9   2     d_C1_R1_R2_F3 
+
+[ exclusions ]
+  2   3   4   5   6   7   9   10  
+  3   4   5   6   7   9   10  
+  4   5   6   7   9   10 
+  5   6   7   9   10 
+  6   7   9   10 
+  7   9   10 
+  9   10 
+
+
+;;;; DEOXY-CORTICOSTERONE
+
+[ moleculetype ]
+  1CA   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     1CA   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     1CA   R1    2     0     115.66
+  3   bt_ring_AB_R2_4ene   0     1CA   R2    3     0     93.24
+  4   bt_ring_D   0     1CA   R3    4     0     0    
+  5   bt_ring_C   0     1CA   R4    5     0     0    
+  6   bt_19_methyl   0     1CA   R5    6     0     0    
+  7   bt_18_methyl   0     1CA   R6    7     0     0    
+  8   bt_hydroxyacetyl    0     1CA   C1    8     0    
+  9   U     0     1CA   F3    8     0     79.1 
+
+[ virtual_sites3 ]
+  4   9   3   2   4     vs_ring_D
+  5   9   3   2   4     vs_ring_C
+  6   9   3   2   4     vs_19_methyl
+  7   9   3   2   4     vs_18_methyl
+
+[ constraints ]
+  9   3   1     c_frame_1
+  9   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1 
+  1   3   1     b_RO_R2 
+  8   7   1     b_C1_R6  
+  8   9   1     b_C1_F3  
+
+[ angles ]
+; i   j   k  funct  angle  force 
+  8   2   3   1     a_C1_R1_R2 
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   9   2     d_RO_R2_R1_F3
+  8   2   3   9   2     d_C1_R1_R2_F3 
+
+[ exclusions ]
+  2   3   4   5   6   7   9
+  3   4   5   6   7   9
+  4   5   6   7   9
+  5   6   7   9
+  6   7   9
+  7   9  
+
+
+;;;; DEOXYCORTISOL
+
+[ moleculetype ]
+  dHCY   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     dHCY   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     dHCY   R1    2     0     123.69
+  3   bt_ring_AB_R2_4ene   0     dHCY   R2    3     0     94.47
+  4   bt_ring_D   0     dHCY   R3    4     0     0    
+  5   bt_ring_C   0     dHCY   R4    5     0     0    
+  6   bt_19_methyl   0     dHCY   R5    6     0     0    
+  7   bt_18_methyl   0     dHCY   R6    7     0     0    
+  8   bt_hydroxyacetyl    0     dHCY   C1    8     0    
+  9   bt_17_hydroxyl   0     dHCY   C2    9     0     0    
+  10  U     0     dHCY   F3    10    0     105.84
+
+[ virtual_sites3 ]
+  4   10   3   2   4     vs_ring_D
+  5   10   3   2   4     vs_ring_C
+  6   10   3   2   4     vs_19_methyl
+  7   10   3   2   4     vs_18_methyl
+  9   10   3   2   4     vs_17_hydroxyl_axial
+
+[ constraints ]
+  10  3   1     c_frame_1
+  10  2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1 
+  1   3   1     b_RO_R2 
+  8   7   1     b_C1_R6  
+  8   9   1     b_C1_C2  
+  8   10  1     b_C1_F3  
+
+[ angles ]
+; i   j   k  funct  angle  force 
+  8   2   3   1     a_C1_R1_R2 
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   10   2     d_RO_R2_R1_F3
+  8   2   3   10   2     d_C1_R1_R2_F3 
+
+[ exclusions ]
+  2   3   4   5   6   7   9   10  
+  3   4   5   6   7   9   10  
+  4   5   6   7   9   10 
+  5   6   7   9   10 
+  6   7   9   10 
+  7   9   10 
+  9   10 
+
+
+;;;; DEHYDROEPI-ANDROSTERONE
+
+[ moleculetype ]
+  AND   1    
+
+[ atoms ]
+  1   bt_3_hydroxyl   0     AND   ROH   1     0     0    
+  2   bt_ring_AB_R1   0     AND   R1    2     0     132.76
+  3   bt_ring_AB_R2   0     AND   R2    3     0     191.47
+  4   bt_ring_D   0     AND   R3    4     0     0    
+  5   bt_ring_C   0     AND   R4    5     0     0    
+  6   bt_19_methyl   0     AND   R5    6     0     0    
+  7   bt_18_methyl   0     AND   R6    7     0     0    
+  8   bt_17_carbonyl  0     AND   C1    8     0     0    
+  9   U     0     AND   F3    8     0     71.77
+
+[ virtual_sites3 ]
+  1   9   3   2   4     vs_3_hydroxyl
+  4   9   3   2   4     vs_ring_D
+  5   9   3   2   4     vs_ring_C
+  6   9   3   2   4     vs_19_methyl
+  7   9   3   2   4     vs_18_methyl
+  8   9   3   2   4     vs_17_carbonyl
+
+[ constraints ]
+  9   3   1     c_frame_1
+  9   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ exclusions ]
+  1   2   3   4   5   6   7   8   9  
+  2   3   4   5   6   7   8   9  
+  3   4   5   6   7   8   9
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+  8   9  
+
+
+;;;; DIHYDROTESTOSTERONE
+
+[ moleculetype ]
+  DHT   1    
+
+[ atoms ]
+  1   bt_3_carbonyl_tAndrostane  0     DHT   RO    1     0    
+  2   bt_ring_AB_R1_tAndrostane   0     DHT   R1    2     0     119.34
+  3   bt_ring_AB_R2_tAndrostane   0     DHT   R2    3     0     97.87
+  4   bt_ring_D   0     DHT   R3    4     0     0    
+  5   bt_ring_C   0     DHT   R4    5     0     0    
+  6   bt_19_methyl   0     DHT   R5    6     0     0    
+  7   bt_18_methyl   0     DHT   R6    7     0     0    
+  8   bt_17_hydroxyl   0     DHT   C1    8     0     0    
+  9   U     0     DHT   F3    8     0     106.79
+
+[ virtual_sites3 ]
+  4   9   3   2   4     vs_ring_D
+  5   9   3   2   4     vs_ring_C
+  6   9   3   2   4     vs_19_methyl
+  7   9   3   2   4     vs_18_methyl
+  8   9   3   2   4     vs_17_hydroxyl_equatorial
+
+[ constraints ]
+  9   3   1     c_frame_1
+  9   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1  
+  1   3   1     b_RO_R2  
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   4   2     d_RO_R2_R1_F3
+
+[ exclusions ]
+  2   3   4   5   6   7   8   9
+  3   4   5   6   7   8   9
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+  8   9  
+
+
+;;;; ESTRADIOL
+
+[ moleculetype ]
+  EST   1    
+
+[ atoms ]
+  1   bt_3_hydroxyl_estrin   0     EST   ROH   1     0     0    
+  2   bt_ring_AB_R1_estrin   0     EST   R1    2     0     125.35
+  3   bt_ring_AB_R2_estrin   0     EST   R2    3     0     0    
+  4   bt_ring_D   0     EST   R3    4     0     0    
+  5   bt_ring_C   0     EST   R4    5     0     0    
+  6   bt_18_methyl   0     EST   R5    6     0     0    
+  7   bt_17_hydroxyl   0     EST   C1    7     0     0    
+  8   U     0     EST   F2    7     0     128.94
+  9   U     0     EST   F3    7     0     87.71
+
+[ virtual_sites3 ]
+  1   9   8   2   4     vs_3_hydroxyl_estrin
+  3   9   8   2   4     vs_ring_AB_R2_estrin
+  4   9   8   2   4     vs_ring_D
+  5   9   8   2   4     vs_ring_C
+  6   9   8   2   4     vs_18_methyl
+  7   9   8   2   4     vs_17_hydroxyl_equatorial
+
+[ constraints ]
+  9   8   1     c_frame_1
+  9   2   1     c_frame_2
+  8   2   1     c_frame_3
+
+[ exclusions ]
+  1   2   3   4   5   6   7   8   9  
+  2   3   4   5   6   7   8   9
+  3   4   5   6   7   8   9  
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+
+;;;; ESTRIOL
+
+[ moleculetype ]
+  ESL   1    
+
+[ atoms ]
+  1   bt_3_hydroxyl_estrin   0     ESL   ROH   1     0     0    
+  2   bt_ring_AB_R1_estrin   0     ESL   R1    2     0     151.69
+  3   bt_ring_AB_R2_estrin   0     ESL   R2    3     0     0    
+  4   bt_ring_D   0     ESL   R3    4     0     0    
+  5   bt_ring_C   0     ESL   R4    5     0     0    
+  6   bt_18_methyl   0     ESL   R5    6     0     0    
+  7   bt_ethanediol   0     ESL   C1    7     0     0    
+  8   U     0     ESL   F2    7     0     107.24
+  9   U     0     ESL   F3    7     0     101.07
+
+[ virtual_sites3 ]
+  1   9   8   2   4     vs_3_hydroxyl_estrin
+  3   9   8   2   4     vs_ring_AB_R2_estrin
+  4   9   8   2   4     vs_ring_D
+  5   9   8   2   4     vs_ring_C
+  6   9   8   2   4     vs_18_methyl
+  7   9   8   2   4     vs_ethanediol
+
+[ constraints ]
+  9   8   1     c_frame_1
+  9   2   1     c_frame_2
+  8   2   1     c_frame_3
+
+[ exclusions ]
+  1   2   3   4   5   6   7   8   9  
+  2   3   4   5   6   7   8   9
+  3   4   5   6   7   8   9  
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+
+
+;;;; ESTRONE
+
+[ moleculetype ]
+  J3Z   1    
+
+[ atoms ]
+  1   bt_3_hydroxyl_estrin   0     J3Z   ROH   1     0     0    
+  2   bt_ring_AB_R1_estrin   0     J3Z   R1    2     0     128.61
+  3   bt_ring_AB_R2_estrin   0     J3Z   R2    3     0     0    
+  4   bt_ring_D   0     J3Z   R3    4     0     0    
+  5   bt_ring_C   0     J3Z   R4    5     0     0    
+  6   bt_18_methyl   0     J3Z   R5    6     0     0    
+  7   bt_17_carbonyl  0     J3Z   C1    7     0     0    
+  8   U     0     J3Z   F2    7     0     126.65
+  9   U     0     J3Z   F3    7     0     86.74
+
+[ virtual_sites3 ]
+  1   9   8   2    4     vs_3_hydroxyl_estrin
+  3   9   8   2    4     vs_ring_AB_R2_estrin
+  4   9   8   2    4     vs_ring_D
+  5   9   8   2    4     vs_ring_C
+  6   9   8   2    4     vs_18_methyl
+  7   9   8   2    4     vs_17_carbonyl
+
+[ constraints ]
+  9   8   1     c_frame_1
+  9   2   1     c_frame_2
+  8   2   1     c_frame_3
+
+[ exclusions ]
+  1   2   3   4   5   6   7   8   9  
+  2   3   4   5   6   7   8   9
+  3   4   5   6   7   8   9  
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+
+
+;;;; ETHINYLESTRADIOL
+
+[ moleculetype ]
+  3WF   1    
+
+[ atoms ]
+  1   bt_3_hydroxyl_estrin   0     3WF   ROH   1     0     0    
+  2   bt_ring_AB_R1_estrin   0     3WF   R1    2     0     123.29
+  3   bt_ring_AB_R2_estrin   0     3WF   R2    3     0     0    
+  4   bt_ring_D   0     3WF   R3    4     0     0    
+  5   bt_ring_C   0     3WF   R4    5     0     0    
+  6   bt_18_methyl   0     3WF   R5    6     0     0    
+  7   bt_ethinyl   0     3WF   C1    7     0     0    
+  8   bt_17_hydroxyl   0     3WF   C2    8     0     0    
+  9   U     0     3WF   F2    8     0     137.55
+  10  U     0     3WF   F3    8     0     117.16
+
+[ virtual_sites3 ]
+  1   10  9   2   4     vs_3_hydroxyl_estrin
+  3   10  9   2   4     vs_ring_AB_R2_estrin
+  4   10  9   2   4     vs_ring_D
+  5   10  9   2   4     vs_ring_C
+  6   10  9   2   4     vs_18_methyl
+  7   10  9   2   4     vs_ethinyl
+  8   10  9   2   4     vs_17_hydroxyl_equatorial
+
+[ constraints ]
+  10  9   1     c_frame_1
+  10  2   1     c_frame_2
+   9  2   1     c_frame_3
+
+[ exclusions ]
+  1   2   3   4   5   6   7   8   9   10 
+  2   3   4   5   6   7   8   9   10
+  3   4   5   6   7   8   9   10 
+  4   5   6   7   8   9   10 
+  5   6   7   8   9   10 
+  6   7   8   9   10 
+  7   8   9   10 
+  8   9   10 
+
+
+;;;; HYDROXY-PREGNENOLONE
+
+[ moleculetype ]
+  LZZ   1    
+
+[ atoms ]
+  1   bt_3_hydroxyl   0     LZZ   ROH   1     0     0    
+  2   bt_ring_AB_R1   0     LZZ   R1    2     0     141.16
+  3   bt_ring_AB_R2   0     LZZ   R2    3     0     181.15
+  4   bt_ring_D   0     LZZ   R3    4     0     0    
+  5   bt_ring_C   0     LZZ   R4    5     0     0    
+  6   bt_19_methyl   0     LZZ   R5    6     0     0    
+  7   bt_18_methyl   0     LZZ   R6    7     0     0    
+  8   bt_acetyl  0     LZZ   C1    8     0     127.69
+  9   bt_17_hydroxyl   0     LZZ   C2    9     0     0    
+
+[ virtual_sites3 ]
+  1   8   3   2   4     vs_3_hydroxyl
+  4   8   3   2   4     vs_ring_D
+  5   8   3   2   4     vs_ring_C
+  6   8   3   2   4     vs_19_methyl
+  7   8   3   2   4     vs_18_methyl
+  9   8   3   2   4     vs_17_hydroxyl_axial
+
+[ constraints ]
+  8   3   1     c_frame_1
+  8   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ exclusions ]
+  1   2   3   4   5   6   7   8   9  
+  2   3   4   5   6   7   8   9  
+  3   4   5   6   7   8   9  
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+  8   9  
+
+
+;;;; HYDROXY-PROGESTERONE
+
+[ moleculetype ]
+  3QZ   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     3QZ   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     3QZ   R1    2     0     126.73
+  3   bt_ring_AB_R2_4ene   0     3QZ   R2    3     0     91.3 
+  4   bt_ring_D   0     3QZ   R3    4     0     0    
+  5   bt_ring_C   0     3QZ   R4    5     0     0    
+  6   bt_19_methyl   0     3QZ   R5    6     0     0    
+  7   bt_18_methyl   0     3QZ   R6    7     0     0    
+  8   bt_acetyl  0     3QZ   C1    8     0     159.97
+  9   bt_17_hydroxyl   0     3QZ   C2    9     0     0    
+
+[ virtual_sites3 ]
+  4   8   3   2   4     vs_ring_D
+  5   8   3   2   4     vs_ring_C
+  6   8   3   2   4     vs_19_methyl
+  7   8   3   2   4     vs_18_methyl
+  9   8   3   2   4     vs_17_hydroxyl_axial
+
+[ constraints ]
+  8   3   1     c_frame_1
+  8   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1  
+  1   3   1     b_RO_R2  
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   4   2     d_RO_R2_R1_F3 
+
+[ exclusions ]
+  2   3   4   5   6   7   8   9  
+  3   4   5   6   7   8   9  
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+  8   9  
+
+
+;;;; PREDNSIONE
+
+[ moleculetype ]
+  PDN   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     PDN   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     PDN   R1    2     0     116.69
+  3   bt_ring_AB_R2_1ene   0     PDN   R2    3     0     107.09
+  4   bt_ring_D   0     PDN   R3    4     0     0    
+  5   bt_11_carbonyl  0     PDN   R4    5     0     0    
+  6   bt_19_methyl   0     PDN   R5    6     0     0    
+  7   bt_18_methyl   0     PDN   R6    7     0     0    
+  8   bt_hydroxyacetyl    0     PDN   C1    8     0    
+  9   bt_17_hydroxyl   0     PDN   C2    9     0     0    
+  10  U     0     PDN   F3    9     0     100.22
+
+[ virtual_sites3 ]
+  4   10  3   2   4     vs_ring_D
+  5   10  3   2   4     vs_11_hydroxyl_carbonyl
+  6   10  3   2   4     vs_19_methyl
+  7   10  3   2   4     vs_18_methyl
+  9   10  3   2   4     vs_17_hydroxyl_axial
+
+[ constraints ]
+  10  3   1     c_frame_1
+  10  2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1 
+  1   3   1     b_RO_R2 
+  8   7   1     b_C1_R6  
+  8   9   1     b_C1_C2  
+  8   10  1     b_C1_F3  
+
+[ angles ]
+; i   j   k  funct  angle  force 
+  8   2   3   1     a_C1_R1_R2 
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2  10    2     d_RO_R2_R1_F3 
+  8   2   3  10    2     d_C1_R1_R2_F3  
+
+[ exclusions ]
+  2   4   5   6   7   9  
+  3   4   5   6   7   9  
+  4   5   6   7   9   10 
+  5   6   7   9   10 
+  6   7   9   10 
+  7   9   10 
+  9   10 
+
+
+;;;; PREGNENOLONE
+
+[ moleculetype ]
+  PLO   1    
+
+[ atoms ]
+  1   bt_3_hydroxyl   0     PLO   ROH   1     0     0    
+  2   bt_ring_AB_R1   0     PLO   R1    2     0     137.56
+  3   bt_ring_AB_R2   0     PLO   R2    3     0     176.01
+  4   bt_ring_D   0     PLO   R3    4     0     0    
+  5   bt_ring_C   0     PLO   R4    5     0     0    
+  6   bt_19_methyl   0     PLO   R5    6     0     0    
+  7   bt_18_methyl   0     PLO   R6    7     0     0    
+  8   bt_acetyl  0     PLO   C1    8     0     100.43
+
+[ virtual_sites3 ]
+  1   8   3   2   4     vs_3_hydroxyl
+  4   8   3   2   4     vs_ring_D
+  5   8   3   2   4     vs_ring_C
+  6   8   3   2   4     vs_19_methyl
+  7   8   3   2   4     vs_18_methyl
+
+[ constraints ]
+  8   3   1     c_frame_1
+  8   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ exclusions ]
+  1   2   3   4   5   6   7   8  
+  2   3   4   5   6   7   8  
+  3   4   5   6   7   8
+  4   5   6   7   8  
+  5   6   7   8  
+  6   7   8  
+  7   8  
+
+
+;;;; PROGESTERONE
+
+[ moleculetype ]
+  STR   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     STR   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     STR   R1    2     0     113.62
+  3   bt_ring_AB_R2_4ene   0     STR   R2    3     0     98.94
+  4   bt_ring_D   0     STR   R3    4     0     0    
+  5   bt_ring_C   0     STR   R4    5     0     0    
+  6   bt_19_methyl   0     STR   R5    6     0     0    
+  7   bt_18_methyl   0     STR   R6    7     0     0    
+  8   bt_acetyl  0     STR   C1    8     0     129.44
+
+[ virtual_sites3 ]
+  4   8   3   2   4     vs_ring_D
+  5   8   3   2   4     vs_ring_C
+  6   8   3   2   4     vs_19_methyl
+  7   8   3   2   4     vs_18_methyl
+
+[ constraints ]
+  8   3   1     c_frame_1
+  8   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1  
+  1   3   1     b_RO_R2  
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   4   2     d_RO_R2_R1_F3
+
+[ exclusions ]
+  2   3   4   5   6   7   8  
+  3   4   5   6   7   8
+  4   5   6   7   8  
+  5   6   7   8  
+  6   7   8  
+  7   8  
+
+
+;;;; TESTOSTERONE
+
+[ moleculetype ]
+  TES   1    
+
+[ atoms ]
+  1   bt_3_carbonyl  0     TES   RO    1     0    
+  2   bt_ring_AB_R1_4ene   0     TES   R1    2     0     116.71
+  3   bt_ring_AB_R2_4ene   0     TES   R2    3     0     100.63
+  4   bt_ring_D   0     TES   R3    4     0     0    
+  5   bt_ring_C   0     TES   R4    5     0     0    
+  6   bt_19_methyl   0     TES   R5    6     0     0    
+  7   bt_18_methyl   0     TES   R6    7     0     0    
+  8   bt_17_hydroxyl   0     TES   C1    8     0     0    
+  9   U     0     TES   F3    8     0     106.66
+
+[ virtual_sites3 ]
+  4   9   3   2   4     vs_ring_D
+  5   9   3   2   4     vs_ring_C
+  6   9   3   2   4     vs_19_methyl
+  7   9   3   2   4     vs_18_methyl
+  8   9   3   2   4     vs_17_hydroxyl_equatorial
+
+[ constraints ]
+  9   3   1     c_frame_1
+  9   2   1     c_frame_2
+  3   2   1     c_frame_3
+
+[ bonds ]
+; i   j  funct  length force
+  1   2   1     b_RO_R1  
+  1   3   1     b_RO_R2  
+
+[ dihedrals ]
+; i   j   k   l  funct  angle  force
+  1   3   2   4   2     d_RO_R2_R1_F3
+
+[ exclusions ]
+  2   3   4   5   6   7   8   9
+  3   4   5   6   7   8   9
+  4   5   6   7   8   9  
+  5   6   7   8   9  
+  6   7   8   9  
+  7   8   9  
+  8   9  
+
+

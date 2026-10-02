@@ -1,0 +1,68 @@
+; Martini 3 topology for DUMP
+; please cite all relevant publications.
+
+[ moleculetype ]
+DUMP 1
+
+[ atoms ]
+ 1 SN1   1 DUMP URA1  1  0.0 45.0
+ 2 TP1a  1 DUMP URA2  2  0.0 45.0
+ 3 TN5d  1 DUMP URA3  3  0.0  0.0
+ 4 TP1a  1 DUMP URA4  4  0.0 45.0
+ 5 TC5   1 DUMP URA5  5  0.0  0.0
+ 6 TC3   1 DUMP RIB1  6  0.0 54.0
+ 7 TP1   1 DUMP RIB2  7  0.0 54.0
+ 8 SN4ar 1 DUMP RIB3  8  0.0 54.0
+ 9 TC4   1 DUMP RIB4  9  0.0  0.0
+10 D     1 DUMP P1   10 -2.0 72.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+ 1  6 b_D_URA1_RIB1
+ 6  7 b_D_RIB1_RIB2
+ 6  8 b_D_RIB1_RIB3
+ 7  8 b_D_RIB2_RIB3
+ 8 10 b_RIB3_P1
+#endif
+
+[ constraints ]
+ 1  2 1 0.290
+ 1  4 1 0.374
+ 2  4 1 0.451
+
+#ifndef FLEXIBLE
+ 1  6 c_D_URA1_RIB1
+ 6  7 c_D_RIB1_RIB2
+ 6  8 c_D_RIB1_RIB3
+ 7  8 c_D_RIB2_RIB3
+ 8 10 c_RIB3_P1
+#endif
+
+[ angles ]
+ 2  1  6 a_URA2_URA1_RIB1
+ 1  6  7 a_D_URA1_RIB1_RIB2
+ 1  6  8 a_D_URA1_RIB1_RIB3
+ 6  8 10 a_RIB1_RIB3_P1
+
+[ virtual_sitesn ]
+ 5 2  1  4
+ 3 2  2  4
+ 9 1  6  7  8
+
+[ dihedrals ]
+ 1  2  4  5 2 0.0 100.0
+ 1  6  7  8 d_URA1_RIB1_RIB2_RIB3
+ 1  6  8 10 d_URA1_RIB1_RIB3_P1
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_1
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_2
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_3
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_4
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_5
+
+[ exclusions ]
+ 1  2  3  4  5 
+ 2  3  4  5 
+ 3  4  5 
+ 4  5 
+ 9  6  7  8 
+

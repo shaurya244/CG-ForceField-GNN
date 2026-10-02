@@ -1,0 +1,42 @@
+; Martini 3 topology for L-Phenylalanine
+; please cite all relevant publications.
+
+[ moleculetype ]
+LPHE 1
+
+[ atoms ]
+1 SQ4p 1 LPHE BB0 1  1.0 54.0
+2 SQ5n 1 LPHE BB1 2 -1.0 72.0
+3 SC4  1 LPHE SC1 3  0.0  0.0
+4 TC5  1 LPHE SC2 4  0.0 54.0
+5 TC5  1 LPHE SC3 5  0.0     
+
+[ bonds ]
+1 4 1 0.457 4918.26
+2 4 1 0.625 4999.274
+2 5 1 0.626 5147.176
+
+#ifdef FLEXIBLE
+4 5 1 0.290 10000
+#endif
+
+[ constraints ]
+1 2 1 0.283
+
+#ifndef FLEXIBLE
+4 5 1 0.290 10000
+#endif
+
+[ angles ]
+1 4 5 10 76.029 53.247
+2 4 5 10 79.931 51.724
+
+[ virtual_sites3 ]
+3 1 2 4 1 0.305 0.544
+
+[ exclusions ]
+1 2 3 4 5 
+2 3 4 5 
+3 4 5 
+4 5 
+

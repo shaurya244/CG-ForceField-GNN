@@ -1,0 +1,37 @@
+; Martini 3 topology for Adenine
+; please cite all relevant publications.
+
+[ moleculetype ]
+ADE 1
+
+[ atoms ]
+1 SN1  1 ADE ADE1 1 0.0 45.0
+2 TN3a 1 ADE ADE2 2 0.0 45.0
+3 TN5a 1 ADE ADE3 3 0.0  0.0
+4 TP1d 1 ADE ADE4 4 0.0 45.0
+5 TN3a 1 ADE ADE5 5 0.0 45.0
+6 TC6  1 ADE ADE6 6 0.0  0.0
+
+[ constraints ]
+1 2 1 0.268
+1 5 1 0.287
+2 4 1 0.417
+2 5 1 0.353
+4 5 1 0.316
+
+[ virtual_sitesn ]
+6 2 2 5
+
+[ dihedrals ]
+1 2 5 4 d_ADE1_ADE2_ADE5_ADE4
+
+[ virtual_sites3 ]
+3 5 2 4 2 0.52 0.373
+
+[ exclusions ]
+1 2 3 4 5 6 
+2 3 4 5 6 
+3 4 5 6 
+4 5 6 
+5 6 
+

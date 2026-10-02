@@ -1,0 +1,16 @@
+; Martini 3 topology for L-Alanine
+; please cite all relevant publications.
+
+[ moleculetype ]
+LALA 1
+
+[ atoms ]
+1 SQ4p 1 LALA BB0 1  1.0 
+2 SQ5n 1 LALA BB1 2 -1.0 
+3 TC3  1 LALA SC1 3  0.0 
+
+[ constraints ]
+1 2 1 0.284
+1 3 1 0.249
+2 3 1 0.307
+

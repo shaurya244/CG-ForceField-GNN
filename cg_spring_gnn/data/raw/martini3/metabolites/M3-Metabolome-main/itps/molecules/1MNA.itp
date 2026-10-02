@@ -1,0 +1,40 @@
+; Martini 3 topology for 1-methylnicotinamide
+; please cite all relevant publications.
+
+[ moleculetype ]
+1MNA 1
+
+[ atoms ]
+1 TN4  1 1MNA AMD1 1 0.0 54.0
+2 TN5a 1 1MNA CO1  2 0.0 36.0
+3 TC5  1 1MNA ARO1 3 0.0 36.0
+4 TC5  1 1MNA ARO2 4 0.0 36.0
+5 TN6a 1 1MNA ARO3 5 0.0 36.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.238 10000
+2 3 1 0.221 10000
+3 4 1 0.183 10000
+3 5 1 0.199 10000
+4 5 1 0.204 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.238
+2 3 1 0.221
+3 4 1 0.183
+5 3 1 0.199
+4 5 1 0.204
+#endif
+
+[ angles ]
+1 2 3 1 110.638 400
+2 3 4 1 131.62 300
+2 3 5 1 161.406 300
+
+[ dihedrals ]
+1 2 3 4 2 179.909 24.771
+2 3 4 5 2 179.966 46.263
+

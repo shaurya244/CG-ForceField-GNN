@@ -1,0 +1,78 @@
+; Martini 3 topology for DCTP
+; Note: Protonated terminal phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+DCTPH 1
+
+[ atoms ]
+ 1 SN1   1 DCTPH CYO1  1  0.0 45.0
+ 2 TP1a  1 DCTPH CYO2  2  0.0 45.0
+ 3 TN5a  1 DCTPH CYO3  3  0.0  0.0
+ 4 TP1d  1 DCTPH CYO4  4  0.0 45.0
+ 5 TC3   1 DCTPH RIB1  5  0.0 54.0
+ 6 TP1   1 DCTPH RIB2  6  0.0 54.0
+ 7 SN4ar 1 DCTPH RIB3  7  0.0 54.0
+ 8 TC4   1 DCTPH RIB4  8  0.0  0.0
+ 9 Q5n   1 DCTPH P1    9 -1.0 72.0
+10 Q5n   1 DCTPH P2   10 -1.0 72.0
+11 Q5n   1 DCTPH P3   11 -1.0 72.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+ 1  5 b_D_CYO1_RIB1
+ 5  6 b_D_RIB1_RIB2
+ 5  7 b_D_RIB1_RIB3
+ 6  7 b_D_RIB2_RIB3
+ 7  9 b_RIB3_P1
+ 9 10 b_H_P1_P2
+10 11 b_H_P2_P3
+#endif
+
+[ constraints ]
+ 1  2 1 0.255
+ 1  4 1 0.340
+ 2  4 1 0.412
+
+#ifndef FLEXIBLE
+ 1  5 c_D_CYO1_RIB1
+ 5  6 c_D_RIB1_RIB2
+ 5  7 c_D_RIB1_RIB3
+ 6  7 c_D_RIB2_RIB3
+ 7  9 c_RIB3_P1
+ 9 10 c_H_P1_P2
+10 11 c_H_P2_P3
+#endif
+
+[ angles ]
+ 2  1  5 a_CYO2_CYO1_RIB1
+ 4  1  5 a_CYO4_CYO1_RIB1
+ 1  5  6 a_D_CYO1_RIB1_RIB2
+ 1  5  7 a_D_CYO1_RIB1_RIB3
+ 5  7  9 a_RIB1_RIB3_P1
+ 7  9 10 a_RIB3_P1_P2
+ 9 10 11 a_P1_P2_P3
+
+[ virtual_sitesn ]
+ 3 2  2  4
+ 8 1  5  6  7
+
+[ dihedrals ]
+ 1  5  6  7 d_CYO1_RIB1_RIB2_RIB3
+ 1  5  7  9 d_CYO1_RIB1_RIB3_P1
+ 2  1  5  7 d_CYO2_CYO1_RIB1_RIB3_1
+ 2  1  5  7 d_CYO2_CYO1_RIB1_RIB3_2
+ 2  1  5  7 d_CYO2_CYO1_RIB1_RIB3_3
+ 2  1  5  7 d_CYO2_CYO1_RIB1_RIB3_4
+ 2  1  5  7 d_CYO2_CYO1_RIB1_RIB3_5
+ 5  7  9 10 d_RIB1_RIB3_P1_P2
+ 7  9 10 11 d_RIB3_P1_P2_P3
+
+[ exclusions ]
+ 1  2  3  4 
+ 1  5  6  7 
+ 2  1  5  6  7 
+ 2  3  4 
+ 3  4 
+ 8  5  6  7 
+

@@ -1,0 +1,31 @@
+; Martini 3 topology for Guanine
+; please cite all relevant publications.
+
+[ moleculetype ]
+GUA 1
+
+[ atoms ]
+1 SN1  1 GUA GUA1 1 0.0 45.0
+2 TP1d 1 GUA GUA2 2 0.0 45.0
+3 TP1d 1 GUA GUA3 3 0.0  0.0
+4 TP1a 1 GUA GUA4 4 0.0 45.0
+5 TN5a 1 GUA GUA5 5 0.0  0.0
+6 TN3a 1 GUA GUA6 6 0.0  0.0
+
+[ constraints ]
+1 2 1 0.566
+1 4 1 0.483
+2 4 1 0.504
+
+[ virtual_sitesn ]
+5 2 1 2
+6 2 1 1 2 4 4
+3 2 2 4
+
+[ exclusions ]
+1 2 3 4 5 6 
+2 3 4 5 6 
+3 4 5 6 
+4 5 6 
+5 6 
+

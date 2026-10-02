@@ -1,0 +1,34 @@
+; Martini 3 topology for 2-aminoadipate
+; please cite all relevant publications.
+
+[ moleculetype ]
+AAD 1
+
+[ atoms ]
+1 SQ5n 1 AAD CAC1 1 -1.0 
+2 TQ4p 1 AAD AMC1 2  1.0 
+3 SC1  1 AAD C1   3  0.0 
+4 SQ5n 1 AAD CAC2 4 -1.0 
+
+[ bonds ]
+2 3 1 0.312 10000
+3 4 1 0.295 15000
+
+#ifdef FLEXIBLE
+1 2 1 0.283 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.283
+#endif
+
+[ angles ]
+1 2 3 2 85 150
+2 3 4 2 130 50
+
+[ exclusions ]
+1 2 3 4 
+2 3 4 
+3 4 
+

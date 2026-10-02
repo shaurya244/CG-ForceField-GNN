@@ -1,0 +1,26 @@
+; Martini 3 topology for fumarate
+; please cite all relevant publications.
+
+[ moleculetype ]
+FUM 1
+
+[ atoms ]
+1 SQ5n 1 FUM CAC1 1 -1.0 54.0
+2 TC4  1 FUM C1   2  0.0 36.0
+3 SQ5n 1 FUM CAC2 3 -1.0 54.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.236 10000
+2 3 1 0.236 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.236
+2 3 1 0.236
+#endif
+
+[ angles ]
+1 2 3 1 186.41 150
+

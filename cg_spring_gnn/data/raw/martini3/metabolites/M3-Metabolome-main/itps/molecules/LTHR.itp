@@ -1,0 +1,16 @@
+; Martini 3 topology for L-Threonine
+; please cite all relevant publications.
+
+[ moleculetype ]
+LTHR 1
+
+[ atoms ]
+1 SQ4p 1 LTHR BB0 1  1.0 
+2 SQ5n 1 LTHR BB1 2 -1.0 
+3 SP1  1 LTHR SC1 3  0.0 
+
+[ constraints ]
+1 2 1 0.284
+1 3 1 0.276
+2 3 1 0.367
+

@@ -1,0 +1,14 @@
+; GROMACS Energy Minimization Parameter File for MARTINI 3
+integrator               = steep
+emtol                    = 10.0
+emstep                   = 0.01
+nsteps                   = 5000
+cutoff-scheme            = Verlet
+nstlist                  = 20
+coulombtype              = reaction-field
+rcoulomb                 = 1.1
+vdw_type                 = cutoff
+vdw-modifier             = Potential-shift-verlet
+rvdw                     = 1.1
+epsilon_r                = 15
+constraints              = none

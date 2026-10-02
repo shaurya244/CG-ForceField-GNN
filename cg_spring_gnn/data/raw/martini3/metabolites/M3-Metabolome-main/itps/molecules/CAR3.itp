@@ -1,0 +1,45 @@
+; Martini 3 topology for C3-carnitine
+; please cite all relevant publications.
+
+[ moleculetype ]
+CAR3 1
+
+[ atoms ]
+1 TC1  1 CAR3 C1   1  0.0     
+2 SN4a 1 CAR3 CAN1 2  0.0 66.0
+3 TC2  1 CAR3 C2   3  0.0  0.0
+4 SQ5n 1 CAR3 CAC1 4 -1.0 66.0
+5 Q2   1 CAR3 NC3  5  1.0 84.0
+
+[ bonds ]
+2 4 1 0.409 6313.785
+4 5 1 0.503 5145.214
+
+#ifdef FLEXIBLE
+1 2 1 0.252 10000
+2 5 1 0.438 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.252
+2 5 1 0.438
+#endif
+
+[ angles ]
+1 2 4 1 160 100
+1 2 5 10 150 70
+2 4 5 10 55.839 60
+
+[ dihedrals ]
+1 4 5 2 2 0 25
+
+[ virtual_sites3 ]
+3 2 4 5 4 0.427 0.299 0.561
+
+[ exclusions ]
+1 2 3 4 5 
+2 3 4 5 
+3 4 5 
+4 5 
+

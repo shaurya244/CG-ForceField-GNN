@@ -1,0 +1,93 @@
+; Martini 3 topology for UDP-galactofuranose
+; please cite all relevant publications.
+
+[ moleculetype ]
+UDPF 1
+
+[ atoms ]
+ 1 SN1   1 UDPF URA1  1  0.0 45.0
+ 2 TP1a  1 UDPF URA2  2  0.0 45.0
+ 3 TN5d  1 UDPF URA3  3  0.0  0.0
+ 4 TP1a  1 UDPF URA4  4  0.0 45.0
+ 5 TC5   1 UDPF URA5  5  0.0  0.0
+ 6 TC3   1 UDPF RIB1  6  0.0 54.0
+ 7 TP1   1 UDPF RIB2  7  0.0 54.0
+ 8 SN4ar 1 UDPF RIB3  8  0.0 54.0
+ 9 TC4   1 UDPF RIB4  9  0.0  0.0
+10 Q5n   1 UDPF P1   10 -1.0 72.0
+11 Q5n   1 UDPF P2   11 -1.0 72.0
+12 TN4ar 1 UDPF GLF1 12  0.0     
+13 SP4r  1 UDPF GLF2 13  0.0     
+14 SN6   1 UDPF GLF3 14  0.0     
+15 TP1   1 UDPF GLF4 15  0.0     
+16 TC4   1 UDPF GLF5 16  0.0  0.0
+
+[ bonds ]
+ 1  6 b_URA1_RIB1
+ 6  7 b_RIB1_RIB2
+12 14 1 0.329 18000
+12 15 1 0.269 18000
+13 14 1 0.329 18000
+14 15 1 0.288 18000
+
+#ifdef FLEXIBLE
+ 6  8 b_RIB1_RIB3
+ 7  8 b_RIB2_RIB3
+ 8 10 b_RIB3_P1
+10 11 b_P1_P2
+11 12 1 0.271 10000
+#endif
+
+[ constraints ]
+ 1  2 1 0.290
+ 1  4 1 0.374
+ 2  4 1 0.451
+
+#ifndef FLEXIBLE
+ 6  8 c_RIB1_RIB3
+ 7  8 c_RIB2_RIB3
+ 8 10 c_RIB3_P1
+10 11 c_P1_P2
+11 12 1 0.271
+#endif
+
+[ angles ]
+ 2  1  6 a_URA2_URA1_RIB1
+ 1  6  7 a_URA1_RIB1_RIB2
+ 1  6  8 a_URA1_RIB1_RIB3
+ 6  8 10 a_RIB1_RIB3_P1
+ 8 10 11 a_RIB3_P1_P2
+10 11 12 10 109.875 56.696
+11 12 14 10 100 63.371
+11 12 15 10 70 75
+12 14 13 10 78.813 250
+
+[ virtual_sitesn ]
+ 5 2  1  4
+ 3 2  2  4
+ 9 1  6  7  8
+16 1 12 14 15
+
+[ dihedrals ]
+ 1  2  4  5 2 0.0 100.0
+ 1  6  7  8 d_URA1_RIB1_RIB2_RIB3
+ 1  6  8 10 d_URA1_RIB1_RIB3_P1
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_1
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_2
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_3
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_4
+ 2  1  6  8 d_URA2_URA1_RIB1_RIB3_5
+ 6  8 10 11 d_RIB1_RIB3_P1_P2
+ 8 10 11 12 9 -24.394 -3.963 1
+ 8 10 11 12 9 99.697 1.279 2
+11 12 14 13 2 -103.763 41.318
+
+[ exclusions ]
+ 1  2  3  4  5 
+ 2  3  4  5 
+ 3  4  5 
+ 4  5 
+ 9  6  7  8 
+11 12 13 14 15 
+16 12 13 14 15 
+

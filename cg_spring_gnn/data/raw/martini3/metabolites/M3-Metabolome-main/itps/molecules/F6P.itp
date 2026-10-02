@@ -1,0 +1,39 @@
+; Martini 3 topology for D-Fructose 6-phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+F6P 1
+
+[ atoms ]
+1 SP4r  1 F6P FUC1 1  0.0 54.0
+2 SP4r  1 F6P FUC2 2  0.0 54.0
+3 SN4ar 1 F6P FUC3 3  0.0 54.0
+4 D     1 F6P P1   4 -2.0     
+5 TC4   1 F6P FUC4 5  0.0  0.0
+
+[ bonds ]
+#ifdef FLEXIBLE
+1 2 1 0.380 10000
+1 3 1 0.443 10000
+2 3 1 0.339 10000
+3 4 1 0.330 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.380
+1 3 1 0.443
+2 3 1 0.339
+3 4 1 0.330
+#endif
+
+[ angles ]
+1 3 4 2 165 150
+2 3 4 2 105 75
+
+[ virtual_sitesn ]
+5 1 1 2 3
+
+[ exclusions ]
+5 1 2 3 4 
+

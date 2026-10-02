@@ -1,0 +1,48 @@
+; Martini 3 topology for Sedoheptulose 7-phosphate
+; please cite all relevant publications.
+
+[ moleculetype ]
+S7P 1
+
+[ atoms ]
+1 TP1  1 S7P ALC1 1  0.0 36.0
+2 TN5a 1 S7P CO1  2  0.0 36.0
+3 TP1  1 S7P ALC2 3  0.0 36.0
+4 TP1  1 S7P ALC3 4  0.0 36.0
+5 TP1  1 S7P ALC4 5  0.0 36.0
+6 SP1  1 S7P ALC5 6  0.0 54.0
+7 D    1 S7P P1   7 -2.0 72.0
+
+[ bonds ]
+6 7 1 0.350 2000.000
+
+#ifdef FLEXIBLE
+1 2 1 0.22 10000
+2 3 1 0.246 10000
+3 4 1 0.25 10000
+4 5 1 0.268 10000
+5 6 1 0.25 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.22
+2 3 1 0.246
+3 4 1 0.25
+4 5 1 0.268
+5 6 1 0.25
+#endif
+
+[ angles ]
+1 2 3 10 85.202 150.000
+2 3 4 10 68.441 150.000
+3 4 5 10 63.523 150.000
+4 5 6 10 76.24 200.000
+5 6 7 10 90.000 20.362
+
+[ dihedrals ]
+1 2 3 4 2 161.574 19.786
+2 3 4 5 2 138.656 84.226
+3 4 5 6 2 169.596 64.767
+4 5 6 7 2 -156.016 9.194
+

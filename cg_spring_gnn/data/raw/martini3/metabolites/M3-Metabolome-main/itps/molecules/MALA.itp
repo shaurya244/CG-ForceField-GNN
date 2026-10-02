@@ -1,0 +1,18 @@
+; Martini 3 topology for malate
+; please cite all relevant publications.
+
+[ moleculetype ]
+MALA 1
+
+[ atoms ]
+1 SQ5n 1 MALA CAC1 1 -1.0 54.0
+2 TC5  1 MALA ALC1 2  0.0 54.0
+3 SQ5n 1 MALA CAC2 3 -1.0 54.0
+
+[ bonds ]
+1 2 1 0.249 7500
+2 3 1 0.231 7500
+
+[ angles ]
+1 2 3 10 125 30
+

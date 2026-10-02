@@ -1,0 +1,33 @@
+; Martini 3 topology for cystathionine
+; please cite all relevant publications.
+
+[ moleculetype ]
+CYST 1
+
+[ atoms ]
+1 SQ5n 1 CYST CAC1 1 -1.0 54.0
+2 SQ4p 1 CYST AMC1 2  1.0 54.0
+3 TC6  1 CYST SUL1 3  0.0 36.0
+4 SQ4p 1 CYST AMC2 4  1.0 54.0
+5 SQ5n 1 CYST CAC2 5 -1.0 54.0
+
+[ bonds ]
+1 2 1 0.268 10000
+2 3 1 0.356 5529.03
+3 4 1 0.251 10000
+4 5 1 0.26 10000
+
+[ angles ]
+1 2 3 10 102.233 32.519
+2 3 4 10 121.643 30.524
+3 4 5 10 129.26 83.64
+
+[ dihedrals ]
+1 2 3 4 2 -163.809 0.261
+2 3 4 5 9 80.698 -2.708 1
+2 3 4 5 9 0.748 0.966 2
+2 3 4 5 9 91.968 -0.393 3
+2 3 4 5 9 139.298 -0.656 4
+2 3 4 5 9 23.134 0.132 5
+2 3 4 5 9 7.018 -0.156 6
+

@@ -1,0 +1,35 @@
+; Martini 3 topology for cis-aconitate
+; please cite all relevant publications.
+
+[ moleculetype ]
+ACEN 1
+
+[ atoms ]
+1 SQ5n 1 ACEN CAC1 1 -1.0 54.0
+2 SC4  1 ACEN C1   2  0.0 54.0
+3 SQ5n 1 ACEN CAC2 3 -1.0 54.0
+4 SQ5n 1 ACEN CAC3 4 -1.0 54.0
+
+[ bonds ]
+1 2 1 0.253 4469.532
+2 4 1 0.273 10000
+
+#ifdef FLEXIBLE
+2 3 1 0.343 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+2 3 1 0.343
+#endif
+
+[ angles ]
+1 2 3 10 129.636 150
+1 2 4 10 110 50
+3 2 4 10 73.796 600
+
+[ exclusions ]
+1 2 3 4 
+2 3 4 
+3 4 
+

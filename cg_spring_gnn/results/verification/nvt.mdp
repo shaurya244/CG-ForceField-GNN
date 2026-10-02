@@ -1,0 +1,22 @@
+; GROMACS NVT Equilibration Parameter File for MARTINI 3
+integrator               = md
+dt                       = 0.020     ; 20 fs time step
+nsteps                   = 50000     ; 1.0 ns simulation
+cutoff-scheme            = Verlet
+nstlist                  = 20
+coulombtype              = reaction-field
+rcoulomb                 = 1.1
+vdw_type                 = cutoff
+vdw-modifier             = Potential-shift-verlet
+rvdw                     = 1.1
+epsilon_r                = 15
+tcoupl                   = v-rescale
+tc-grps                  = System
+tau_t                    = 1.0
+ref_t                    = 300
+pcoupl                   = no
+gen_vel                  = yes
+gen_temp                 = 300
+gen_seed                 = -1
+constraints              = none
+nstxout-compressed       = 500       ; save every 10 ps

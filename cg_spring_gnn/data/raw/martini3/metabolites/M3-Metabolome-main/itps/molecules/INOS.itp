@@ -1,0 +1,69 @@
+; Martini 3 topology for inosine
+; please cite all relevant publications.
+
+[ moleculetype ]
+INOS 1
+
+[ atoms ]
+ 1 SN1   1 INOS HPX1  1 0.0 45.0
+ 2 TN3a  1 INOS HPX2  2 0.0 48.0
+ 3 TN5a  1 INOS HPX3  3 0.0  0.0
+ 4 TP1d  1 INOS HPX4  4 0.0 48.0
+ 5 TN3a  1 INOS HPX5  5 0.0 48.0
+ 6 TC6   1 INOS HPX6  6 0.0  0.0
+ 7 SN6   1 INOS RIB1  7 0.0 54.0
+ 8 TP1   1 INOS RIB2  8 0.0 54.0
+ 9 SN4ar 1 INOS RIB3  9 0.0 54.0
+10 TC4   1 INOS RIB4 10 0.0  0.0
+
+[ bonds ]
+ 1  7 1 0.286 5347.269
+
+#ifdef FLEXIBLE
+ 1  2 1 0.427 10000
+ 1  5 1 0.171 10000
+ 2  4 1 0.349 10000
+ 2  5 1 0.42 10000
+ 4  5 1 0.281 10000
+ 7  8 1 0.232 10000
+ 7  9 1 0.342 10000
+ 8  9 1 0.292 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+ 1  2 1 0.427
+ 1  5 1 0.171
+ 2  4 1 0.349
+ 2  5 1 0.42
+ 4  5 1 0.281
+ 7  8 1 0.232
+ 7  9 1 0.342
+ 8  9 1 0.292
+#endif
+
+[ angles ]
+ 2  1  7 10 71.248 55.922
+ 1  7  8 10 133.199 94.358
+ 1  7  9 10 76.25 30
+
+[ virtual_sitesn ]
+ 6 2  2  5
+10 1  7  8  9
+
+[ dihedrals ]
+ 1  2  5  4 2 180.0 400
+ 2  1  7  8 2 -131.379 22.022
+
+[ virtual_sites3 ]
+ 3  5  2  4 2 0.636 0.375
+
+[ exclusions ]
+ 1  2  3  4  5  6 
+ 2  3  4  5  6 
+ 2  7 
+ 3  4  5  6 
+ 4  5  6 
+ 5  6 
+10  7  8  9 
+

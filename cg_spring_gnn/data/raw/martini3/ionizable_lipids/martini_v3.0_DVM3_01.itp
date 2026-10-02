@@ -1,0 +1,81 @@
+;;;;;; Martini lipid topology for di-C18:1, generated using:
+; The Martini lipid itp generator version M3.l01 Ionizable lipids  Args are: -alname DVM3 -alhead 'M3' -altail 'CCDC CCDC'
+; WARNING: Lipids topology was generated following the Martini 3.0 guidelines but not all lipid head group and tail combinations
+;          have been tested; used with care and see <M3lipid main ref> for guidance.
+;
+; Description:
+;   MC3 headgroup IL - Neutral
+; Parameterization:
+;   This topology follows the standard Martini 3.0 lipid definitions and building block rules.
+; Reference(s): 
+;   L. Kjølbye et al. Ionizable Lipids, TBD and K.B. Pedersen et al.  TBD Martini 3 lipids TBD and P.C.T. Souza et al. Martini 3: a general purpose force field for coarse-grained molecular dynamics, 
+;   Nat. Methods; 2021. doi: 10.1038/s41592-021-01098-7
+; Created: 2023.01.26
+;
+; Molecular topology and mapping of indices:
+;@INSANE alhead=M3, altail=CCDC CCDC, alname=DVM3, charge=0.0
+;@RESNTEST DVM==DVM3 if: atoms[0]==N1
+;@BEADS N1 CN GLA CX C1A C2A D3A C4A C1B C2B D3B C4B 
+;@BONDS N1-CN CN-GLA GLA-CX CX-C1A CX-C1B C1A-C2A C2A-D3A D3A-C4A C1B-C2B C2B-D3B D3B-C4B 
+;
+
+[moleculetype]
+; molname      nrexcl
+  DVM3          1
+
+[atoms]
+; id 	type 	resnr 	residu 	atom 	cgnr 	charge    (mass)
+   1  TN3a   1  DVM3   N1   1 	0
+   2   TC2   1  DVM3   CN   2 	0
+   3  SN4a   1  DVM3  GLA   3 	0
+   4   SC2   1  DVM3   CX   4 	0 	; Branching bead to tail
+   5    C1   1  DVM3  C1A   5 	0
+   6    C1   1  DVM3  C2A   6 	0
+   7   C4h   1  DVM3  D3A   7 	0
+   8    C1   1  DVM3  C4A   8 	0
+   9    C1   1  DVM3  C1B   9 	0
+  10    C1   1  DVM3  C2B  10 	0
+  11   C4h   1  DVM3  D3B  11 	0
+  12    C1   1  DVM3  C4B  12 	0
+
+[bonds]
+;  i  j 	name 	(using named bondtypes from martini_v3.0_ffbonded.itp)
+;  i  j 	funct 	force.c.
+; Headgroup and linker bonds
+   1  2   1 	0.34 	5000 	; N1-CN
+   2  3   1 	0.365 	5000 	; CN-GLA
+   3  4   1 	0.365 	5000 	; GLA-CX
+   4  5   1 	0.47 	5000 	; CX-C1A
+   4  9   1 	0.47 	5000 	; CX-C1B
+   5  6 	b_C1_C1
+   6  7 	b_C1_C4
+   7  8 	b_C4_C1
+   9 10 	b_C1_C1
+  10 11 	b_C1_C4
+  11 12 	b_C4_C1
+
+[angles]
+;  i  j  k 	name 	(using named angletypes from martini_v3.0_ffbonded.itp)
+;  i  j  k 	funct 	angle 	force.c.
+; Orient the headgroup and linker
+   1  2  3   1 	155 	15 	; N1-CN-GLA
+   2  3  4   1 	130 	20 	; CN-GLA-CX
+   3  4  9   1 	110 	15 	; GLA-CX-C1B
+   3  4  5   1 	110 	15 	; GLA-CX-C1A
+   5  4  9   1 	125 	25 	; C1A-CX-C1B
+; Tail part (uses standard Martini tail rules)
+   4  5  6   2 	155 	25 	; CX-C1A-C2A
+   4  9 10   1 	155 	25 	; CX-C1B-C2B
+   5  6  7 	a_C1_C1_C4
+   6  7  8 	a_C1_C4_C1
+   9 10 11 	a_C1_C1_C4
+  10 11 12 	a_C1_C4_C1
+
+[exclusions]
+; i  j  k  ...
+5 9
+[ pairs ]
+5 9 1 4.100000e-01    2.350000e+00
+
+
+

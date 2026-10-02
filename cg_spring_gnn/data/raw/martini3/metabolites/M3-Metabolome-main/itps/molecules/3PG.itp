@@ -1,0 +1,31 @@
+; Martini 3 topology for 3-Phospho-D-glycerate
+; please cite all relevant publications.
+
+[ moleculetype ]
+3PG 1
+
+[ atoms ]
+1 SP1  1 3PG ALC1 1  0.0 54.0
+2 D    1 3PG P1   2 -2.0 72.0
+3 SQ5n 1 3PG CAC1 3 -1.0 54.0
+
+[ bonds ]
+2 3 1 0.449 5047.637
+
+#ifdef FLEXIBLE
+1 2 1 0.358 10000
+#endif
+
+[ constraints ]
+#ifndef FLEXIBLE
+1 2 1 0.358
+#endif
+
+[ angles ]
+1 2 3 10 32.564 150
+
+[ exclusions ]
+1 2 3 
+2 1 3 
+3 1 2 
+

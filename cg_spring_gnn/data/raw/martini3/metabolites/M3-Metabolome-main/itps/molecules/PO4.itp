@@ -1,0 +1,10 @@
+; Martini 3 topology for Phosphate
+; Note: other study
+; please cite all relevant publications.
+
+[ moleculetype ]
+PO4 1
+
+[ atoms ]
+1 D 1 PO4 P1 1 0.0 72.0
+

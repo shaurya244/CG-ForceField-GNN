@@ -1,0 +1,9 @@
+; Martini 3 topology for Acetaldehyde
+; please cite all relevant publications.
+
+[ moleculetype ]
+ACEH 1
+
+[ atoms ]
+1 SN4a 1 ACEH CO1 1 0.0 54.0
+

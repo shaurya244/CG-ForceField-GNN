@@ -1,0 +1,16 @@
+; Martini 3 topology for L-Glutamine
+; please cite all relevant publications.
+
+[ moleculetype ]
+LGLN 1
+
+[ atoms ]
+1 SQ4p 1 LGLN BB0 1  1.0 
+2 SQ5n 1 LGLN BB1 2 -1.0 
+3 P5   1 LGLN SC1 3  0.0 
+
+[ constraints ]
+1 2 1 0.283
+1 3 1 0.357
+2 3 1 0.423
+

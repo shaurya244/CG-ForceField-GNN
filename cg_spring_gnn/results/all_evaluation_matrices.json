@@ -1,0 +1,206 @@
+{
+  "Regression_Metrics_Matrix": [
+    {
+      "Target": "k_bond",
+      "Unit": "kJ/mol/nm^2",
+      "Linear_R2": 0.9398,
+      "Log_R2": 0.9477,
+      "RMSE": 5072.5753,
+      "MAE": 1880.1526,
+      "Median_Absolute_Error": 399.0648,
+      "Max_Error": 40544.5391,
+      "MAPE_percent": 14.32,
+      "Pearson_r": 0.9697,
+      "Spearman_rho": 0.8791
+    },
+    {
+      "Target": "k_angle",
+      "Unit": "kJ/mol/rad^2",
+      "Linear_R2": 0.6041,
+      "Log_R2": 0.8122,
+      "RMSE": 71.4719,
+      "MAE": 23.1108,
+      "Median_Absolute_Error": 1.4301,
+      "Max_Error": 626.4666,
+      "MAPE_percent": 23.6,
+      "Pearson_r": 0.8159,
+      "Spearman_rho": 0.8837
+    },
+    {
+      "Target": "r0",
+      "Unit": "nm",
+      "Linear_R2": 0.4777,
+      "Log_R2": 0.5609,
+      "RMSE": 0.0659,
+      "MAE": 0.0367,
+      "Median_Absolute_Error": 0.0187,
+      "Max_Error": 0.5786,
+      "MAPE_percent": 9.27,
+      "Pearson_r": 0.6926,
+      "Spearman_rho": 0.7801
+    },
+    {
+      "Target": "theta0",
+      "Unit": "degrees",
+      "Linear_R2": 0.6607,
+      "Log_R2": 0.0676,
+      "RMSE": 0.356,
+      "MAE": 0.1643,
+      "Median_Absolute_Error": 0.0693,
+      "Max_Error": 5.4719,
+      "MAPE_percent": 8.66,
+      "Pearson_r": 0.8208,
+      "Spearman_rho": 0.8375
+    }
+  ],
+  "Relative_Tolerance_Accuracies": {
+    "k_bond": {
+      "within_5_percent": 54.36,
+      "within_10_percent": 72.69,
+      "within_15_percent": 79.23,
+      "within_20_percent": 81.67,
+      "within_25_percent": 83.97,
+      "within_30_percent": 86.79,
+      "within_50_percent": 93.72
+    },
+    "k_angle": {
+      "within_5_percent": 45.41,
+      "within_10_percent": 60.48,
+      "within_15_percent": 66.38,
+      "within_20_percent": 70.09,
+      "within_25_percent": 74.45,
+      "within_30_percent": 77.29,
+      "within_50_percent": 86.9
+    },
+    "r0": {
+      "within_5_percent": 49.62,
+      "within_10_percent": 65.77,
+      "within_15_percent": 77.95,
+      "within_20_percent": 86.15,
+      "within_25_percent": 91.15,
+      "within_30_percent": 94.87,
+      "within_50_percent": 99.23
+    },
+    "theta0": {
+      "within_5_percent": 60.48,
+      "within_10_percent": 73.36,
+      "within_15_percent": 80.57,
+      "within_20_percent": 86.46,
+      "within_25_percent": 92.14,
+      "within_30_percent": 94.1,
+      "within_50_percent": 97.6
+    }
+  },
+  "Absolute_Tolerance_Accuracies": {
+    "k_bond": {
+      "within_500_kJ_mol_nm2": 52.82,
+      "within_1000_kJ_mol_nm2": 62.44,
+      "within_2500_kJ_mol_nm2": 82.44,
+      "within_5000_kJ_mol_nm2": 92.44
+    },
+    "r0": {
+      "within_0.01_nm (0.1 A)": 35.77,
+      "within_0.02_nm (0.2 A)": 51.15,
+      "within_0.05_nm (0.5 A)": 74.87
+    },
+    "theta0": {
+      "within_5_deg": 99.78,
+      "within_10_deg": 100.0,
+      "within_15_deg": 100.0
+    }
+  },
+  "Classification_and_F1_Matrices": {
+    "k_bond_Classification": {
+      "Classes": [
+        "Flexible (<=7k)",
+        "Semi-Rigid (7k-25k)",
+        "Rigid Ring (>=25k)"
+      ],
+      "Accuracy": 96.79,
+      "F1_Macro": 0.9224,
+      "F1_Weighted": 0.9684,
+      "F1_Per_Class": {
+        "Flexible (<=7k)": 0.9872,
+        "Semi-Rigid (7k-25k)": 0.8099,
+        "Rigid Ring (>=25k)": 0.9701
+      },
+      "Precision_Macro": 0.9156,
+      "Precision_Weighted": 0.9693,
+      "Precision_Per_Class": {
+        "Flexible (<=7k)": 0.9851,
+        "Semi-Rigid (7k-25k)": 0.7778,
+        "Rigid Ring (>=25k)": 0.9838
+      },
+      "Recall_Macro": 0.9303,
+      "Recall_Weighted": 0.9679,
+      "Recall_Per_Class": {
+        "Flexible (<=7k)": 0.9893,
+        "Semi-Rigid (7k-25k)": 0.8448,
+        "Rigid Ring (>=25k)": 0.9567
+      },
+      "Confusion_Matrix": [
+        [
+          463,
+          3,
+          2
+        ],
+        [
+          7,
+          49,
+          2
+        ],
+        [
+          0,
+          11,
+          243
+        ]
+      ]
+    },
+    "k_angle_Classification": {
+      "Classes": [
+        "Flexible (<=50)",
+        "Medium (50-150)",
+        "Stiff (>150)"
+      ],
+      "Accuracy": 90.39,
+      "F1_Macro": 0.8622,
+      "F1_Weighted": 0.9068,
+      "F1_Per_Class": {
+        "Flexible (<=50)": 0.9453,
+        "Medium (50-150)": 0.8136,
+        "Stiff (>150)": 0.8276
+      },
+      "Precision_Macro": 0.8594,
+      "Precision_Weighted": 0.9146,
+      "Precision_Per_Class": {
+        "Flexible (<=50)": 0.9767,
+        "Medium (50-150)": 0.7442,
+        "Stiff (>150)": 0.8571
+      },
+      "Recall_Macro": 0.871,
+      "Recall_Weighted": 0.9039,
+      "Recall_Per_Class": {
+        "Flexible (<=50)": 0.9159,
+        "Medium (50-150)": 0.8972,
+        "Stiff (>150)": 0.8
+      },
+      "Confusion_Matrix": [
+        [
+          294,
+          27,
+          0
+        ],
+        [
+          7,
+          96,
+          4
+        ],
+        [
+          0,
+          6,
+          24
+        ]
+      ]
+    }
+  }
+}

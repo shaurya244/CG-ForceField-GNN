@@ -1,0 +1,16 @@
+; Martini 3 topology for L-Glutamate
+; please cite all relevant publications.
+
+[ moleculetype ]
+LGLU 1
+
+[ atoms ]
+1 SQ4p 1 LGLU BB0 1  1.0 
+2 SQ5n 1 LGLU BB1 2 -1.0 
+3 Q5n  1 LGLU SC1 3 -1.0 
+
+[ constraints ]
+1 2 1 0.284
+1 3 1 0.319
+2 3 1 0.383
+

@@ -1,0 +1,25 @@
+; Martini 3 topology for Cytosine
+; please cite all relevant publications.
+
+[ moleculetype ]
+CYO 1
+
+[ atoms ]
+1 SN1  1 CYO CYO1 1 0.0 45.0
+2 TP1a 1 CYO CYO2 2 0.0 45.0
+3 TN5a 1 CYO CYO3 3 0.0  0.0
+4 TP1d 1 CYO CYO4 4 0.0 45.0
+
+[ constraints ]
+1 2 1 0.255
+1 4 1 0.340
+2 4 1 0.412
+
+[ virtual_sitesn ]
+3 2 2 4
+
+[ exclusions ]
+1 2 3 4 
+2 3 4 
+3 4 
+

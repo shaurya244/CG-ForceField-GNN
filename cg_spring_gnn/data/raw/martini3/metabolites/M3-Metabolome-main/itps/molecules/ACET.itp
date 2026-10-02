@@ -1,0 +1,9 @@
+; Martini 3 topology for Acetate
+; please cite all relevant publications.
+
+[ moleculetype ]
+ACET 1
+
+[ atoms ]
+1 SQ5n 1 ACET CAC1 1 -1.0 72.0
+
