@@ -9,7 +9,7 @@
 [![Boltzmann Overlap](https://img.shields.io/badge/Boltzmann_Overlap-BC_=_0.995-darkgreen.svg?style=flat)](#7-thermodynamic-boltzmann-overlap-benchmark)
 [![Master Report](https://img.shields.io/badge/Master_Report-KaTeX_PDF_11.2MB-6a1b9a.svg?style=flat)](./full_project_report_and_study_guide.pdf)
 
-> **Antigravity Deep Biophysics Suite**: An end-to-end computational biophysics and machine learning framework that predicts harmonic bonded force-field parameters ($k_{\text{bond}}$, $r_0$, $k_{\text{angle}}$, $\theta_0$) directly from coarse-grained molecular graph topology, guarantees Velocity Verlet numerical integration stability, and exports ready-to-run GROMACS `.itp` topologies in $<2\text{ ms}$.
+> **Antigravity Deep Biophysics Suite**: An end-to-end computational biophysics and machine learning framework that predicts harmonic bonded force-field parameters (`k_bond`, `r_0`, `k_angle`, `theta_0`) directly from coarse-grained molecular graph topology, guarantees Velocity Verlet numerical integration stability, and exports ready-to-run GROMACS `.itp` topologies in &lt; 2 ms.
 
 ---
 
@@ -35,14 +35,18 @@
 ## 1. Executive Summary & Highlights
 
 Coarse-Grained (CG) Molecular Dynamics models—predominantly **MARTINI 3**—enable microsecond-scale simulations of macromolecular systems by mapping ~4 heavy atoms to single interaction beads. However, determining the bonded potential parameters:
-$$V(r) = \frac{1}{2} k_{\text{bond}} (r - r_0)^2, \quad V(\theta) = \frac{1}{2} k_{\text{angle}} (\theta - \theta_0)^2$$
+
+$$
+V(r) = \frac{1}{2} k_{\text{bond}} (r - r_0)^2, \quad V(\theta) = \frac{1}{2} k_{\text{angle}} (\theta - \theta_0)^2
+$$
+
 traditionally demands iterative, computationally expensive all-atom simulations and Iterative Boltzmann Inversion (IBI), taking hundreds of GPU hours per molecule.
 
 This project delivers an automated machine learning replacement trained on 1,226 biomolecular topologies (lipids, sterols, amino acids, human metabolites, and complex polymers):
 - **SOTA GNN-XGBoost Stacking Hybrid Model**: Resolves the fundamental representational bottleneck between continuous neural activations and empirical discrete step-function force-field look-up tables ($R^2 = \mathbf{0.865}$ on bonds, $R^2 = \mathbf{0.672}$ on angles).
 - **100% Velocity Verlet Stability Guarantee**: Evaluated across all 122 held-out test molecules ($780$ bonds, $458$ angles). Every single predicted bond safely sustains standard MARTINI $\Delta t = 20\text{ fs}$ time steps without numerical resonance or high-frequency divergence ($\Delta t_{\min} = 36.3\text{ fs}$, median $149.3\text{ fs}$).
 - **Thermodynamic Boltzmann Overlap**: Proves that predicted potential wells yield a **$99.5\%$ median conformational ensemble overlap** ($BC = \mathbf{0.9948}$) and sub-thermal information entropy divergence ($D_{KL} = \mathbf{0.052\text{ }k_B T}$) with empirical MARTINI 3 at $300\text{ K}$.
-- **Turnkey GROMACS Engine**: Automatically parameterizes unseen molecules in $<2\text{ ms}$ and exports syntax-verified GROMACS `.itp` topology files.
+- **Turnkey GROMACS Engine**: Automatically parameterizes unseen molecules in &lt; 2 ms and exports syntax-verified GROMACS `.itp` topology files.
 
 ---
 
@@ -125,21 +129,36 @@ A coarse-grained molecule is modeled as an attributed graph $G = (V, E, \mathcal
 
 3. **Permutation-Invariant Angle Triplet Encoding**:
    Angle potentials must be strictly invariant under arm swap $(i-j-k \equiv k-j-i)$. We enforce this inductively at the representation level:
-   $$\mathbf{h}_{ijk} = \left[ \mathbf{h}_j \parallel (\mathbf{h}_i + \mathbf{h}_k) \parallel |\mathbf{h}_i - \mathbf{h}_k| \parallel (\mathbf{e}_{ji} + \mathbf{e}_{jk}) \parallel |\mathbf{e}_{ji} - \mathbf{e}_{jk}| \right]$$
+
+$$
+\mathbf{h}_{ijk} = \left[ \mathbf{h}_j \parallel (\mathbf{h}_i + \mathbf{h}_k) \parallel |\mathbf{h}_i - \mathbf{h}_k| \parallel (\mathbf{e}_{ji} + \mathbf{e}_{jk}) \parallel |\mathbf{e}_{ji} - \mathbf{e}_{jk}| \right]
+$$
+
    where $\parallel$ denotes concatenation, preserving exact symmetry without data augmentation.
 
 ### 3.2 Message-Passing GNN Backbone (`CGSpringGNN`)
 
 The core continuous feature extractor operates via $L = 3$ stacked Edge-Conditioned Convolution layers (`NNConv`):
-$$\mathbf{m}_{ij}^{(l)} = \text{MLP}_{\text{edge}}^{(l)}(\mathbf{e}_{ij}) \mathbf{h}_j^{(l-1)}$$
-$$\mathbf{h}_i^{(l)} = \text{LayerNorm}\left( \mathbf{h}_i^{(l-1)} + \text{Dropout}\left(\sum_{j \in \mathcal{N}(i)} \mathbf{m}_{ij}^{(l)}\right) \right)$$
+
+$$
+\mathbf{m}_{ij}^{(l)} = \text{MLP}_{\text{edge}}^{(l)}(\mathbf{e}_{ij}) \mathbf{h}_j^{(l-1)}
+$$
+
+$$
+\mathbf{h}_i^{(l)} = \text{LayerNorm}\left( \mathbf{h}_i^{(l-1)} + \text{Dropout}\left(\sum_{j \in \mathcal{N}(i)} \mathbf{m}_{ij}^{(l)}\right) \right)
+$$
+
 - **Decoupled Heads**: Separate 2-layer MLPs with LeakyReLU activations parameterize $k_{\text{bond}}$, $r_0$, and $\theta_0$, eliminating negative transfer between vibrational stiffness and equilibrium geometry.
 - **Topological Coordination Pooling**: Incorporates global degree statistics into the central vertex embedding prior to angle readout.
 
 ### 3.3 Physics-Aware Log-Space Multi-Task Loss
 
 Spring constants span multiple orders of magnitude ($k_{\text{bond}} \in [10^3, 5\times 10^4]\text{ kJ/mol/nm}^2$; $k_{\text{angle}} \in [5, 10^3]\text{ kJ/mol/rad}^2$). Standard MSE gradients are overwhelmed by stiff ring constraints. We formulate a logarithmic multi-task objective:
-$$\mathcal{L}_{\text{total}} = \lambda_b \mathcal{L}_{\text{Huber}}(\log_{10} \hat{k}_b, \log_{10} k_b) + \lambda_r \mathcal{L}_{\text{Huber}}(\hat{r}_0, r_0) + \lambda_a \mathcal{L}_{\text{Huber}}(\log_{10} \hat{k}_a, \log_{10} k_a) + \lambda_\theta \mathcal{L}_{\text{Huber}}(\hat{\theta}_0, \theta_0) + \lambda_{\text{reg}} \mathcal{L}_{\text{CE}}$$
+
+$$
+\mathcal{L}_{\text{total}} = \lambda_b \mathcal{L}_{\text{Huber}}(\log_{10} \hat{k}_b, \log_{10} k_b) + \lambda_r \mathcal{L}_{\text{Huber}}(\hat{r}_0, r_0) + \lambda_a \mathcal{L}_{\text{Huber}}(\log_{10} \hat{k}_a, \log_{10} k_a) + \lambda_\theta \mathcal{L}_{\text{Huber}}(\hat{\theta}_0, \theta_0) + \lambda_{\text{reg}} \mathcal{L}_{\text{CE}}
+$$
+
 - **Huber Loss ($\delta = 1.0$)**: Transitions smoothly from quadratic error for small discrepancies to linear error for extreme outliers, bounding gradient norms.
 - **Auxiliary Regime Cross-Entropy**: Predicts coarse stiffness regimes (Flexible, Semi-Rigid, Rigid Ring) with class-frequency balancing weights ($w_{\text{flex}} = 1.0, w_{\text{med}} = 2.5, w_{\text{stiff}} = 3.0$), penalizing wrong-regime predictions.
 
@@ -157,8 +176,13 @@ Because continuous gradient-based neural networks minimize mean squared error th
 
 #### The Stacking Solution:
 We decouple representation learning from step-function boundary regression:
-1. **Stage 1 (Continuous Representation)**: The trained GNN backbone acts as a frozen graph topological feature extractor, transforming the molecular graph into a 384-dimensional latent embedding $\mathbf{h}_{ijk}$.
-2. **Stage 2 (Piecewise Decision Boundaries)**: A specialized Gradient-Boosted Decision Tree (XGBoost Regressor) is trained on $\mathbf{h}_{ijk}$ augmented with raw skip features $\mathbf{x}_{\text{skip}} = [\mathbf{x}_j \parallel (\mathbf{x}_i + \mathbf{x}_k) \parallel |\mathbf{x}_i - \mathbf{x}_k|]$.
+1. **Stage 1 (Continuous Representation)**: The trained GNN backbone acts as a frozen graph topological feature extractor, transforming the molecular graph into a 384-dimensional latent embedding $`\mathbf{h}_{ijk}`$.
+2. **Stage 2 (Piecewise Decision Boundaries)**: A specialized Gradient-Boosted Decision Tree (XGBoost Regressor) is trained on $`\mathbf{h}_{ijk}`$ augmented with raw skip features:
+
+$$
+\mathbf{x}_{\text{skip}} = \left[ \mathbf{x}_j \parallel (\mathbf{x}_i + \mathbf{x}_k) \parallel |\mathbf{x}_i - \mathbf{x}_k| \right]
+$$
+
 3. **Outcome**: The hybrid model effortlessly splits the feature space along sharp threshold boundaries, boosting full-set angle $R^2$ from **$0.231 \to \mathbf{0.672}$** and slashing flexible MAE to **$4.82\text{ kJ/mol/rad}^2$**.
 
 ![Hybrid Model Parity and Residual Performance](./cg_spring_gnn/results/hybrid_model_performance.png)
@@ -192,14 +216,17 @@ Our 5-pillar Verification & Validation (V&V) scorecard bridges computer science 
 | **2** | **Physical Bounds Preservation** | $r_0 \in [0.2, 0.7]\text{ nm}, \theta_0 \in [40, 180]^\circ$ | $100\%$ within biophysical range | $100.0\%$ compliant | **PASSED** |
 | **3** | **Verlet Integrator Stability** | $\Delta t_{\max} = 2\sqrt{\mu/k_{\text{bond}}}$ | $\Delta t_{\max} \ge 20\text{ fs}$ | $\mathbf{100.0\%}$ ($\Delta t_{\min} = 36.3\text{ fs}$) | **PASSED** |
 | **4** | **Statistical Mechanics Overlap** | Bhattacharyya Overlap ($BC$) | Median $BC \ge 0.90$ | Median $BC = \mathbf{0.9948}$ | **PASSED** |
-| **5** | **Operational Deployment** | Automated GROMACS `.itp` | Automated generation $< 10\text{ ms}$ | $< 2\text{ ms}$ (122/122 verified) | **PASSED** |
+| **5** | **Operational Deployment** | Automated GROMACS `.itp` | Automated generation &lt; 10 ms | &lt; 2 ms (122/122 verified) | **PASSED** |
 
 ---
 
 ## 6. Physical Verification & Numerical Stability
 
 In molecular dynamics, harmonic springs induce oscillatory vibrational modes with natural frequency $\omega = \sqrt{k/\mu}$ where $\mu = \frac{m_1 m_2}{m_1 + m_2}$ is the reduced mass in atomic mass units. Under the Velocity Verlet algorithm, numerical resonance occurs if the integration time step $\Delta t$ approaches the vibrational period $T = 2\pi/\omega$. The strict mathematical stability criterion is:
-$$\Delta t \le \frac{2}{\omega} = 2 \sqrt{\frac{\mu}{k_{\text{bond}}}} \quad [\text{fs}]$$
+
+$$
+\Delta t \le \frac{2}{\omega} = 2 \sqrt{\frac{\mu}{k_{\text{bond}}}} \quad [\text{fs}]
+$$
 
 Standard coarse-grained simulations employ $\Delta t = 20\text{ fs}$. If an ML model over-predicts bond stiffness ($k_{\text{bond}} > 150{,}000$), $\Delta t_{\max}$ drops below $20\text{ fs}$, causing catastrophic numerical coordinate explosions (`NaN`).
 
@@ -208,8 +235,8 @@ Standard coarse-grained simulations employ $\Delta t = 20\text{ fs}$. If an ML m
 ### Comprehensive 122-Molecule Physical Verification Results:
 - **100.0% Verlet Numerical Stability at 20 fs**: Evaluated across all 780 test bonds. Mean limit is $\mathbf{129.6\text{ fs}}$, median is $\mathbf{149.3\text{ fs}}$, and worst-case minimum is $\mathbf{36.3\text{ fs}}$—giving a **$+81.5\%$ safety headroom** above standard $20\text{ fs}$ MD time steps.
 - **Physical Thermal Fluctuation Widths**: By the classical equipartition theorem, thermal vibrational widths strictly conform to the biophysical envelope:
-  $$\sigma_r = \sqrt{\frac{k_B T}{k_{\text{bond}}}} = \mathbf{0.188\text{ \AA}} \quad (\text{expected } 0.1\text{–}0.3\text{ \AA})$$
-  $$\sigma_\theta = \sqrt{\frac{k_B T}{k_{\text{angle}}}} = \mathbf{15.6^\circ} \quad (\text{expected } 10\text{–}25^\circ)$$
+  - Bond fluctuation width: $\sigma_r = \sqrt{k_B T / k_{\text{bond}}} = \mathbf{0.0188\text{ nm}}$ ($0.188\text{ \mathring{A}}$, expected $0.1\text{–}0.3\text{ \mathring{A}}$)
+  - Angular fluctuation width: $\sigma_\theta = \sqrt{k_B T / k_{\text{angle}}} = \mathbf{15.6^\circ}$ (expected $10\text{–}25^\circ$)
 - **Overall Molecular Pass Rate**: **$99.2\%$** (121/122 test molecules passed all strict physical audits).
 
 ---
@@ -221,15 +248,22 @@ While Verlet stability proves simulations do not crash, the definitive test of f
 ![Thermodynamic Free Energy & Boltzmann Distribution Overlap Benchmark](./cg_spring_gnn/results/boltzmann_overlap_benchmark.png)
 
 At physiological temperature ($T = 300\text{ K}$, $k_B T \approx 2.4943\text{ kJ/mol}$), the canonical Boltzmann probability density is:
-$$P(r) \propto r^2 \exp\left(-\frac{k_{\text{bond}}(r - r_0)^2}{2 k_B T}\right), \quad P(\theta) \propto \sin(\theta) \exp\left(-\frac{k_{\text{angle}}(\theta - \theta_0)^2}{2 k_B T}\right)$$
+
+$$
+P(r) \propto r^2 \exp\left(-\frac{k_{\text{bond}}(r - r_0)^2}{2 k_B T}\right), \quad P(\theta) \propto \sin(\theta) \exp\left(-\frac{k_{\text{angle}}(\theta - \theta_0)^2}{2 k_B T}\right)
+$$
 
 We evaluate three complementary statistical mechanics metrics:
 1. **Bhattacharyya Overlap Coefficient ($BC \in [0, 1]$)**:
-   $$BC(P_{\text{true}}, P_{\text{pred}}) = \int \sqrt{P_{\text{true}}(x) P_{\text{pred}}(x)} \, dx$$
+
+$$
+BC(P_{\text{true}}, P_{\text{pred}}) = \int \sqrt{P_{\text{true}}(x) P_{\text{pred}}(x)} \, dx
+$$
+
    - **Angle Overlap**: Median $BC = \mathbf{0.9948}$ ($99.5\%$ identical thermodynamic sampling; $71.4\%$ of angles achieve $BC \ge 0.90$).
    - **Bond Overlap**: Median $BC = \mathbf{0.8377}$.
 2. **Wasserstein-1 Earth Mover's Distance ($W_1$)**:
-   - Median bond distance difference: $W_1 = \mathbf{0.189\text{ \AA}}$ ($0.0189\text{ nm}$).
+   - Median bond distance difference: $W_1 = \mathbf{0.0189\text{ nm}}$ ($0.189\text{ \mathring{A}}$).
    - Median angular divergence: $W_1 = \mathbf{3.05^\circ}$.
 3. **Kullback-Leibler Information Divergence ($D_{KL}$)**:
    - Median relative entropy: $D_{KL} = \mathbf{0.052\text{ }k_B T}$ (indistinguishable from thermal Brownian noise).

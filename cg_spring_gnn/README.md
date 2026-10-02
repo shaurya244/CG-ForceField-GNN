@@ -76,7 +76,10 @@ $^*$*Evaluated on the natural flexible/medium $P_{80}$ subset ($k_{\text{angle}}
 - **Node Features ($\mathbf{x}_v \in \mathbb{R}^{80}$)**: One-hot bead catalog (64 types), size scaling (Regular $R$, Small $S$, Tiny $T$), effective mass ($18\text{–}72\text{ amu}$), net formal charge ($\pm 1$), H-bonding donor/acceptor counts, coordination degree.
 - **Edge Features ($\mathbf{e}_{uv} \in \mathbb{R}^{143}$)**: Bead interaction outer product, multi-hot ring indicators (3- to 7+-membered rings), aromaticity indicator, pairwise Coulombic energy approximation.
 - **Permutation Invariance**: Enforced by pooling arm vectors and differences:
-  $$\mathbf{h}_{ijk} = \left[ \mathbf{h}_j \parallel (\mathbf{h}_i + \mathbf{h}_k) \parallel |\mathbf{h}_i - \mathbf{h}_k| \parallel (\mathbf{e}_{ji} + \mathbf{e}_{jk}) \parallel |\mathbf{e}_{ji} - \mathbf{e}_{jk}| \right]$$
+
+$$
+\mathbf{h}_{ijk} = \left[ \mathbf{h}_j \parallel (\mathbf{h}_i + \mathbf{h}_k) \parallel |\mathbf{h}_i - \mathbf{h}_k| \parallel (\mathbf{e}_{ji} + \mathbf{e}_{jk}) \parallel |\mathbf{e}_{ji} - \mathbf{e}_{jk}| \right]
+$$
 
 ### 2.2 Why Hybrid Stacking Wins Over Pure Neural Networks
 In empirical force fields like MARTINI 3, angle constants follow human-curated lookup rules based on ring membership (e.g. $k_a \in \{20, 25, 45, 70, 100, 1000\}$). Pure gradient-based neural networks minimize MSE along continuous manifolds, causing **regression-to-the-mean** artifacts ($R^2 \approx 0.23$). 
@@ -90,10 +93,13 @@ By training a **Stage-2 Gradient-Boosted Decision Tree (XGBoost)** on the GNN's 
 ## 3. Physical Verification & Integrator Stability
 
 Harmonic spring constants determine maximum stable Velocity Verlet integration steps:
-$$\Delta t_{\max} = \frac{2}{\omega} = 2 \sqrt{\frac{\mu}{k_{\text{bond}}}} \quad [\text{fs}]$$
+
+$$
+\Delta t_{\max} = \frac{2}{\omega} = 2 \sqrt{\frac{\mu}{k_{\text{bond}}}} \quad [\text{fs}]
+$$
 
 - **100.0% Verlet Stability at 20 fs**: Evaluated across all 780 bonds in the 122 test molecules. Mean limit is $\mathbf{129.6\text{ fs}}$, median is $\mathbf{149.3\text{ fs}}$, worst-case is $\mathbf{36.3\text{ fs}}$ ($+81.5\%$ safety headroom).
-- **Thermal Equipartition Fluctuation Widths**: Predicted thermal envelopes conform to biophysics: $\sigma_r = \mathbf{0.188\text{ \AA}}$, $\sigma_\theta = \mathbf{15.6^\circ}$.
+- **Thermal Equipartition Fluctuation Widths**: Predicted thermal envelopes conform to biophysics: $\sigma_r = \mathbf{0.0188\text{ nm}}$ ($0.188\text{ \mathring{A}}$), and $\sigma_\theta = \mathbf{15.6^\circ}$.
 
 ![Physical Verification Distributions](./results/test_verifications/test_dataset_verification_distributions.png)
 
@@ -102,12 +108,15 @@ $$\Delta t_{\max} = \frac{2}{\omega} = 2 \sqrt{\frac{\mu}{k_{\text{bond}}}} \qua
 ## 4. Thermodynamic Boltzmann Overlap Benchmark
 
 Evaluates all 780 bonds and 458 angles against canonical Boltzmann probability densities:
-$$P(r) \propto r^2 \exp\left(-\frac{k_{\text{bond}}(r - r_0)^2}{2 k_B T}\right), \quad P(\theta) \propto \sin(\theta) \exp\left(-\frac{k_{\text{angle}}(\theta - \theta_0)^2}{2 k_B T}\right)$$
+
+$$
+P(r) \propto r^2 \exp\left(-\frac{k_{\text{bond}}(r - r_0)^2}{2 k_B T}\right), \quad P(\theta) \propto \sin(\theta) \exp\left(-\frac{k_{\text{angle}}(\theta - \theta_0)^2}{2 k_B T}\right)
+$$
 
 ![Boltzmann Overlap Benchmark](./results/boltzmann_overlap_benchmark.png)
 
 - **Bhattacharyya Overlap ($BC$)**: Median angle overlap is **$0.9948$** ($99.5\%$ identical thermodynamic sampling; $71.4\%$ of angles achieve $BC \ge 0.90$).
-- **Wasserstein-1 Earth Mover's Distance ($W_1$)**: Median angle divergence is **$3.05^\circ$**; median bond divergence is **$0.189\text{ \AA}$**.
+- **Wasserstein-1 Earth Mover's Distance ($W_1$)**: Median angle divergence is **$3.05^\circ$**; median bond divergence is **$0.0189\text{ nm}$** ($0.189\text{ \mathring{A}}$).
 - **Kullback-Leibler Divergence ($D_{KL}$)**: Median relative entropy is **$0.052\text{ }k_B T$** (sub-thermal noise).
 
 ---
