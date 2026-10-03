@@ -55,6 +55,10 @@ Thumbs.db
 ehthumbs.db
 desktop.ini
 
+# Executable binaries & compiler engines
+bin/
+*.exe
+
 # Logs & scratch debug artifacts
 *.log
 *.tmp
