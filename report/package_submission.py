@@ -30,6 +30,8 @@ def main():
     print(f"[*] Packaging submission to: {zip_path}")
 
     files_to_pack = [
+        ("report/report_single_column.pdf", report_dir / "report_single_column.pdf"),
+        ("report/report_single_column.tex", report_dir / "report_single_column.tex"),
         ("report/report.pdf", report_dir / "report.pdf"),
         ("report/report.tex", report_dir / "report.tex"),
         ("report/references.bib", report_dir / "references.bib"),

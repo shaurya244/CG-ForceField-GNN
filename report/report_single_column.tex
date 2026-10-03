@@ -1,8 +1,11 @@
-\documentclass[10pt,journal,compsoc]{IEEEtran}
+\documentclass[11pt,a4paper]{article}
 
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{lmodern}
+\usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{multirow}
@@ -13,10 +16,28 @@
 \usepackage{algpseudocode}
 \usepackage{hyperref}
 \usepackage{cite}
-\usepackage{microtype}
 \usepackage{subcaption}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{setspace}
 
-% Hyperref setup with clean academic colors
+\setstretch{1.15}
+
+% Clean section title styling
+\titleformat{\section}{\large\bfseries\color{blue!75!black}}{\thesection}{1em}{}[\vspace{0.4ex}\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries\color{black!90}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\small\bfseries\color{black!75}}{\thesubsubsection}{1em}{}
+
+% Running headers and footers
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize \textit{EE798R: Pattern Recognition --- Research Assignment Report}}
+\rhead{\footnotesize \textit{Shaurya Srivastava (IIT Kanpur)}}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+
+% Hyperlink configuration
 \hypersetup{
     colorlinks=true,
     linkcolor=blue!70!black,
@@ -24,12 +45,12 @@
     urlcolor=blue!80!black
 }
 
-% Code listing styling
+% Code listing styling with properly padded left margins
 \definecolor{codegreen}{rgb}{0,0.55,0.2}
 \definecolor{codegray}{rgb}{0.45,0.45,0.45}
 \definecolor{codepurple}{rgb}{0.55,0,0.75}
-\definecolor{codeblue}{rgb}{0.1,0.2,0.7}
-\definecolor{backcolour}{rgb}{0.97,0.97,0.98}
+\definecolor{codeblue}{rgb}{0.1,0.25,0.75}
+\definecolor{backcolour}{rgb}{0.975,0.98,0.99}
 
 \lstdefinestyle{pythonstyle}{
     backgroundcolor=\color{backcolour},   
@@ -37,50 +58,51 @@
     keywordstyle=\color{codeblue}\bfseries,
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\fontsize{7pt}{8.5pt}\selectfont,
+    basicstyle=\ttfamily\footnotesize,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
     keepspaces=true,                 
     numbers=left,                    
-    numbersep=6pt,                  
-    xleftmargin=1.8em,
+    numbersep=10pt,                  
+    xleftmargin=2.5em,
     frame=single,
-    framexleftmargin=1.5em,
-    framexrightmargin=0.2em,
-    xrightmargin=0.2em,
+    framexleftmargin=2.0em,
     rulecolor=\color{black!15},
     showspaces=false,                
     showstringspaces=false,
     showtabs=false,                  
-    tabsize=2
+    tabsize=4
 }
 \lstset{style=pythonstyle}
 
 \begin{document}
 
-\title{Graph Neural Networks and Gradient-Boosted Hybrid Stacking for Coarse-Grained Molecular Force Field Parameterization}
+% =========================================================================
+% TITLE AND METADATA BLOCK
+% =========================================================================
+\begin{center}
+    {\Large \bfseries Graph Neural Networks and Gradient-Boosted Hybrid Stacking for Coarse-Grained Molecular Force Field Parameterization} \\[1.5ex]
+    {\large Course Project Report: Research Assignment in Pattern Recognition} \\[1ex]
+    \textbf{Shaurya Srivastava} \\[0.5ex]
+    \textit{Department of Electrical Engineering, Indian Institute of Technology Kanpur} \\
+    \textit{Course: EE798R -- Pattern Recognition} \\
+    \textbf{GitHub Repository:} \url{https://github.com/shaurya244/EE798-CG-ForceField-GNN} \\[1ex]
+    \rule{\textwidth}{0.8pt}
+\end{center}
 
-\author{Shaurya Srivastava\\
-\IEEEauthorblockA{Department of Electrical Engineering, Indian Institute of Technology Kanpur\\
-Course: EE798R -- Pattern Recognition\\
-GitHub Repository: \url{https://github.com/shaurya244/EE798-CG-ForceField-GNN}}
-}
+\vspace{-0.5em}
 
-\markboth{EE798R: Pattern Recognition Course Project, October 2026}{Srivastava: GNNs and Hybrid Stacking for Force Field Parameterization}
-
-\IEEEtitleabstractindextext{
+% =========================================================================
+% ABSTRACT
+% =========================================================================
 \begin{abstract}
-Determining bonded interaction parameters ($k_{\text{bond}}, r_0, k_{\text{angle}}, \theta_0$) for coarse-grained (CG) molecular force fields---predominantly MARTINI~3---conventionally requires weeks of computationally demanding all-atom molecular dynamics (MD) simulations and Iterative Boltzmann Inversion (IBI). In this work, we formulate bonded parameterization as an inductive pattern recognition task over molecular graphs and present an end-to-end framework combining Edge-Conditioned Message-Passing Graph Neural Networks (MPNN) with a Stage-2 Gradient-Boosted Tree (XGBoost) stacking architecture. The GNN backbone encodes multi-hop chemical topologies into continuous permutation-invariant latent representations, while the gradient-boosted decision forest resolves the fundamental continuous-to-discrete representational bottleneck arising from empirical force-field look-up tables. Trained and evaluated on a rigorously deduplicated dataset of 1,226 MARTINI~3 biomolecules (7,606 bonds and 4,630 angles), our SOTA Hybrid Model achieves a linear $R^2$ of $\mathbf{0.9398}$ ($\text{MAE} = 1{,}880.15\text{ kJ/mol/nm}^2$) on bond stiffness and $\mathbf{0.9211}$ ($\text{MAE} = 12.42\text{ kJ/mol/rad}^2$, $\text{MedAE} = 0.50\text{ kJ/mol/rad}^2$) on angle stiffness, slashing angle MAE by $46.2\%$ over pure deep learning baselines. Physical verification demonstrates $100.0\%$ Velocity Verlet integration stability at $\Delta t = 20\text{ fs}$ across all 122 held-out test molecules, with a median conformational Boltzmann overlap of $BC = \mathbf{0.9948}$ ($D_{KL} = 0.052\text{ }k_B T$). The complete pipeline executes forward parameterization in $< 2.1\text{ ms}$ per molecule and automatically outputs syntax-verified GROMACS topologies.
+\noindent Determining bonded interaction parameters ($k_{\text{bond}}, r_0, k_{\text{angle}}, \theta_0$) for coarse-grained (CG) molecular force fields---predominantly MARTINI~3---conventionally requires weeks of computationally demanding all-atom molecular dynamics (MD) simulations and Iterative Boltzmann Inversion (IBI). In this work, we formulate bonded parameterization as an inductive pattern recognition task over molecular graphs and present an end-to-end framework combining Edge-Conditioned Message-Passing Graph Neural Networks (MPNN) with a Stage-2 Gradient-Boosted Tree (XGBoost) stacking architecture. The GNN backbone encodes multi-hop chemical topologies into continuous permutation-invariant latent representations, while the gradient-boosted decision forest resolves the fundamental continuous-to-discrete representational bottleneck arising from empirical force-field look-up tables. Trained and evaluated on a rigorously deduplicated dataset of 1,226 MARTINI~3 biomolecules (7,606 covalent bonds and 4,630 bond angles), our SOTA Hybrid Model achieves a linear $R^2$ of $\mathbf{0.9398}$ ($\text{MAE} = 1{,}880.15\text{ kJ/mol/nm}^2$) on bond stiffness and $\mathbf{0.9211}$ ($\text{MAE} = 12.42\text{ kJ/mol/rad}^2$, $\text{MedAE} = 0.50\text{ kJ/mol/rad}^2$) on angle stiffness, slashing angle MAE by $46.2\%$ over pure deep learning baselines. Physical verification demonstrates $100.0\%$ Velocity Verlet integration stability at $\Delta t = 20\text{ fs}$ across all 122 held-out test molecules, with a median conformational Boltzmann overlap of $BC = \mathbf{0.9948}$ ($D_{KL} = 0.052\text{ }k_B T$). The complete pipeline executes forward parameterization in $< 2.1\text{ ms}$ per molecule and automatically outputs syntax-verified GROMACS topologies.
 \end{abstract}
 
-\begin{IEEEkeywords}
-Pattern Recognition, Graph Neural Networks, Message Passing, Coarse-Grained Molecular Dynamics, Hybrid Stacking, Force Field Parameterization, MARTINI 3, GROMACS.
-\end{IEEEkeywords}}
-
-\maketitle
-\IEEEdisplaynontitleabstractindextext
-\IEEEpeerreviewmaketitle
+\vspace{0.5em}
+\noindent \textbf{Keywords:} Pattern Recognition, Graph Neural Networks, Message Passing, Coarse-Grained Molecular Dynamics, Hybrid Stacking, Force Field Parameterization, MARTINI 3, GROMACS.
+\vspace{1em}
 
 % =========================================================================
 % SECTION 2.2: INTRODUCTION AND MOTIVATION
@@ -88,15 +110,15 @@ Pattern Recognition, Graph Neural Networks, Message Passing, Coarse-Grained Mole
 \section{Introduction and Motivation}
 \label{sec:intro}
 
-\IEEEPARstart{M}{olecular} dynamics (MD) simulations represent a foundational computational tool across structural biology, materials science, and biophysics. By numerically integrating Newton's second law of motion:
+Molecular dynamics (MD) simulations represent a foundational computational paradigm across structural biology, materials science, and computational biophysics. By numerically integrating Newton's second law of motion:
 \begin{equation}
 \mathbf{F}_i = m_i \frac{d^2 \mathbf{r}_i}{dt^2} = -\nabla_{\mathbf{r}_i} V(\mathbf{r}_1, \dots, \mathbf{r}_N),
 \label{eq:newton}
 \end{equation}
-MD enables the atomic-level observation of molecular processes such as drug-membrane permeation, viral capsid self-assembly, and polymer crystallization~\cite{souza2021martini3,tuckerman2010statistical}. However, all-atom (AA) simulations are severely constrained by femtosecond integration steps ($\Delta t \approx 1\text{--}2\text{ fs}$), rendering microsecond-to-millisecond biological phenomena computationally intractable on modern supercomputers.
+MD enables the atomic-level observation of molecular processes such as drug-membrane permeation, viral capsid self-assembly, and polymer crystallization~\cite{souza2021martini3,tuckerman2010statistical}. However, classical all-atom (AA) simulations are severely constrained by femtosecond integration time steps ($\Delta t \approx 1\text{--}2\text{ fs}$), rendering microsecond-to-millisecond biological phenomena computationally prohibitive on contemporary computing clusters.
 
 \subsection{The Coarse-Graining Paradigm \& The Parameterization Bottleneck}
-Coarse-grained (CG) models---most notably the \textbf{MARTINI 3} force field~\cite{souza2021martini3}---overcome this spatiotemporal horizon by clustering approximately four heavy atoms into single interaction beads. This bead mapping reduces the degrees of freedom by nearly an order of magnitude and smoothens the underlying free energy surface, allowing time steps an order of magnitude larger ($\Delta t = 20\text{--}40\text{ fs}$).
+Coarse-grained (CG) models---most notably the \textbf{MARTINI 3} force field~\cite{souza2021martini3}---overcome this spatiotemporal horizon by clustering approximately four heavy atoms into single pseudo-atomic interaction beads. This bead mapping reduces the number of interacting centers by nearly an order of magnitude and smoothens the underlying free energy landscape, permitting integration steps an order of magnitude larger ($\Delta t = 20\text{--}40\text{ fs}$).
 
 Despite these computational gains, generating the empirical bonded potential functions:
 \begin{align}
@@ -173,9 +195,9 @@ R^2 = 1 - \frac{\sum_{i=1}^N (y_i - \hat{y}_i)^2}{\sum_{i=1}^N (y_i - \bar{y})^2
 \end{equation}
 penalizes errors quadratically, a residual error of $(1000 - 420)^2 = 336{,}400$ on just 2 or 3 extreme constraint points injects immense error into the residual sum of squares ($SS_{\text{res}}$), collapsing the linear $R^2$ from $0.90$ to $0.60$.
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=\columnwidth]{figures/architectural_diagnostic_gnn_vs_hybrid.png}
+\includegraphics[width=0.88\textwidth]{figures/architectural_diagnostic_gnn_vs_hybrid.png}
 \caption{Architectural diagnostic comparing the smooth continuous manifold of the pure GNN against the orthogonal decision boundary partitioning of the Stacking Hybrid Model.}
 \label{fig:diagnostic}
 \end{figure}
@@ -261,7 +283,7 @@ For a molecular graph with $|V|$ beads, $|E|$ bonds, and $|\mathcal{A}|$ angle t
 
 The complete execution workflow is summarized in Algorithm~\ref{alg:hybrid}. Preprocessing parses raw GROMACS \texttt{.itp} directives, filters \texttt{\#ifdef FLEXIBLE} duplicates, constructs 1-WL ring features, and compiles PyG graph objects. Training proceeds via AdamW optimization with Cosine Annealing. Upon GNN convergence, graph embeddings are harvested and used to train the XGBoost stacking regressor.
 
-\begin{algorithm}[t]
+\begin{algorithm}[htbp]
 \caption{End-to-End GNN-Tree Stacking Pipeline}
 \label{alg:hybrid}
 \begin{algorithmic}[1]
@@ -289,11 +311,11 @@ The complete execution workflow is summarized in Algorithm~\ref{alg:hybrid}. Pre
 \subsection{Hyperparameter Configuration}
 Table~\ref{tab:hyperparams} documents the optimized architectural and training hyperparameters across both stages.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \caption{Hyperparameter settings for GNN and Stacking Regressor.}
 \label{tab:hyperparams}
-\begin{tabular}{llr}
+\begin{tabularx}{0.75\textwidth}{Xlr}
 \toprule
 \textbf{Component} & \textbf{Hyperparameter} & \textbf{Value} \\
 \midrule
@@ -317,7 +339,7 @@ Table~\ref{tab:hyperparams} documents the optimized architectural and training h
  & Learning Rate ($\eta_{\text{tree}}$) & 0.05 \\
  & Subsample / Colsample & 0.80 / 0.80 \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 % =========================================================================
@@ -445,7 +467,45 @@ Splits were constructed using stratified molecule-level partitioning to ensure z
     \item \textbf{Held-Out Test Set}: 122 topologies ($20\%$), $780$ clean bonds, $458$ clean angles.
 \end{itemize}
 
-Experiments were conducted on an Intel Core i7 system equipped with an NVIDIA RTX GPU, running Windows 11 and PyTorch Geometric with CUDA acceleration.
+Experiments were conducted on an Intel Core i7 system equipped with an NVIDIA RTX GPU, running Windows 11 and PyTorch Geometric with CUDA acceleration. Table~\ref{tab:hyperparameters} outlines all hyperparameter values and search ranges.
+
+\begin{table}[htbp]
+\centering
+\caption{Systematic hyperparameter configuration for GNN backbone and Stage-2 gradient-boosted models.}
+\label{tab:hyperparameters}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llcc}
+\toprule
+\textbf{Component} & \textbf{Hyperparameter} & \textbf{Search / Setting Range} & \textbf{Selected Optimal Value} \\
+\midrule
+\multirow{4}{*}{\textbf{Optimization}} 
+ & Optimizer & Adam, AdamW, RMSProp & AdamW \\
+ & Base Learning Rate ($\eta$) & $[10^{-4}, 10^{-2}]$ & $1.0 \times 10^{-3}$ \\
+ & Learning Rate Scheduler & StepLR, Cosine, ReduceOnPlateau & ReduceLROnPlateau (factor=0.5, pat=10) \\
+ & Weight Decay ($L_2$) & $[10^{-6}, 10^{-3}]$ & $1.0 \times 10^{-4}$ \\
+ & Batch Size ($B$) & $\{16, 32, 64\}$ & 32 molecular graphs \\
+ & Max Training Epochs & $[100, 300]$ & 200 (early stopping patience 25) \\
+\midrule
+\multirow{4}{*}{\textbf{MPNN Architecture}}
+ & Message-Passing Layers & $\{2, 3, 4, 5\}$ & 3 NNConv layers \\
+ & Latent Dimension ($d_h$) & $\{64, 128, 256\}$ & 128 \\
+ & Edge Conditioning MLPs & $[64, 128]$ hidden & 2-layer MLP (128 hidden, LeakyReLU) \\
+ & Normalization \& Dropout & BatchNorm, LayerNorm & LayerNorm ($d_h$) + Dropout ($p = 0.10$) \\
+ & Degree Conditioning Head & $[16, 64]$ & 2-layer MLP ($3 \to 32 \to \text{ReLU}$) \\
+\midrule
+\multirow{3}{*}{\textbf{Loss Weights}}
+ & Huber Transition Delta ($\delta$) & $[0.5, 2.0]$ & $1.0$ \\
+ & Stiffness Multi-Task Weights & Grid Search & $w_{k_b} = 1.0, w_{r_0} = 2.0, w_{k_a} = 1.5, w_{\theta_0} = 1.0$ \\
+ & Regime Regularization ($w_{\text{CE}}$) & $[0.01, 0.50]$ & $0.10$ \\
+\midrule
+\multirow{3}{*}{\textbf{Stage-2 XGBoost}}
+ & Estimators & $[100, 1000]$ & 500 decision trees \\
+ & Max Depth & $\{4, 6, 8, 10\}$ & 6 \\
+ & Learning Rate / Subsample & Grid Search & $\eta = 0.05$, subsample = 0.8, colsample = 0.8 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
 
 % =========================================================================
 % SECTION 2.9: QUANTITATIVE RESULTS
@@ -455,7 +515,7 @@ Experiments were conducted on an Intel Core i7 system equipped with an NVIDIA RT
 
 We evaluate models across standard pattern recognition metrics (linear $R^2$, logarithmic $R^2$, MAE, MedAE, RMSE, MAPE, Pearson $r$, Spearman $\rho$) and physical verification criteria (Verlet $\Delta t_{\min}$, Boltzmann overlap $BC$).
 
-\begin{table*}[t]
+\begin{table}[htbp]
 \centering
 \caption{Comprehensive quantitative test-set benchmark across 122 held-out molecules (780 bonds, 458 angles).}
 \label{tab:benchmark}
@@ -477,7 +537,7 @@ Specialized $P_{80}$ GNN & $\mathbf{0.9402}$ & $\mathbf{1{,}865.1\text{ kJ}}$ & 
 }
 \vspace{1ex}
 \raggedright \footnotesize $^*$Evaluated on the natural flexible/medium $P_{80}$ subset ($k_{\text{angle}} \le 78.10\text{ kJ/mol/rad}^2$, $N = 361$).
-\end{table*}
+\end{table}
 
 \subsection{Discussion of Benchmark Performance}
 As documented in Table~\ref{tab:benchmark}:
@@ -494,17 +554,17 @@ Table~\ref{tab:tolerance} evaluates the percentage of predictions falling within
 \centering
 \caption{Percentage of test predictions within absolute error tolerances ($\text{kJ/mol/rad}^2$).}
 \label{tab:tolerance}
-\resizebox{\columnwidth}{!}{%
+\resizebox{0.75\textwidth}{!}{%
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Tolerance Band} & \textbf{Hybrid} & \textbf{Base GNN} & \textbf{$P_{80}$ GNN} & \textbf{Random Forest} \\
+\textbf{Tolerance Band ($\text{kJ/mol/rad}^2$)} & \textbf{Hybrid Model} & \textbf{Base GNN} & \textbf{$P_{80}$ GNN} & \textbf{Random Forest} \\
 \midrule
-$\le 1.0\text{ kJ}$ & $\mathbf{54.20\%}$ & $46.10\%$ & $41.20\%$ & $48.50\%$ \\
-$\le 2.0\text{ kJ}$ & $\mathbf{64.41\%}$ & $56.77\%$ & $53.28\%$ & $59.20\%$ \\
-$\le 5.0\text{ kJ}$ & $\mathbf{69.87\%}$ & $64.41\%$ & $63.10\%$ & $66.80\%$ \\
-$\le 10.0\text{ kJ}$ & $\mathbf{73.58\%}$ & $69.65\%$ & $68.56\%$ & $71.40\%$ \\
-$\le 15.0\text{ kJ}$ & $\mathbf{76.64\%}$ & $71.83\%$ & $71.18\%$ & $74.20\%$ \\
-$\le 20.0\text{ kJ}$ & $\mathbf{79.69\%}$ & $74.45\%$ & $72.71\%$ & $76.80\%$ \\
+$\le 1.0$ & $\mathbf{54.20\%}$ & $46.10\%$ & $41.20\%$ & $48.50\%$ \\
+$\le 2.0$ & $\mathbf{64.41\%}$ & $56.77\%$ & $53.28\%$ & $59.20\%$ \\
+$\le 5.0$ & $\mathbf{69.87\%}$ & $64.41\%$ & $63.10\%$ & $66.80\%$ \\
+$\le 10.0$ & $\mathbf{73.58\%}$ & $69.65\%$ & $68.56\%$ & $71.40\%$ \\
+$\le 15.0$ & $\mathbf{76.64\%}$ & $71.83\%$ & $71.18\%$ & $74.20\%$ \\
+$\le 20.0$ & $\mathbf{79.69\%}$ & $74.45\%$ & $72.71\%$ & $76.80\%$ \\
 \bottomrule
 \end{tabular}%
 }
@@ -519,7 +579,7 @@ $\le 20.0\text{ kJ}$ & $\mathbf{79.69\%}$ & $74.45\%$ & $72.71\%$ & $76.80\%$ \\
 \subsection{Parity Plots \& Correlation Diagnostics}
 Figure~\ref{fig:parity} presents parity scatter plots for predicted versus ground-truth spring constants. For $k_{\text{bond}}$, predictions cluster tightly along the diagonal identity line $y = x$, confirming that preprocessor deduplication completely eliminated the vertical underprediction artifact at $50{,}000$. For $k_{\text{angle}}$, the hybrid model accurately resolves both standard flexible springs ($k_a \approx 25\text{--}45$) and rigid constraint springs ($k_a = 1{,}000$).
 
-\begin{figure*}[t]
+\begin{figure}[htbp]
 \centering
 \begin{subfigure}[b]{0.48\textwidth}
     \includegraphics[width=\textwidth]{figures/scatter_k_bond.png}
@@ -534,51 +594,51 @@ Figure~\ref{fig:parity} presents parity scatter plots for predicted versus groun
 \end{subfigure}
 \caption{Parity plots comparing ground-truth versus predicted force constants across 122 held-out test molecules.}
 \label{fig:parity}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/hybrid_model_performance.png}
+\includegraphics[width=0.90\textwidth]{figures/hybrid_model_performance.png}
 \caption{Comprehensive 4-panel diagnostic for the Stacking Hybrid Model: (a) Angle parity, (b) residual distribution, (c) tolerance accuracy, and (d) relative error decay.}
 \label{fig:hybrid_perf}
-\end{figure*}
+\end{figure}
 
 \subsection{Multi-Modal Gaussian \& Error Bell Curve Analysis}
 Figure~\ref{fig:gaussian} analyzes target density distributions and prediction residuals. Panels~(c-d) confirm that in $\log_{10}$ space, bond stiffness exhibits a clean bimodal Gaussian mixture corresponding to flexible linkers ($k \approx 5{,}000$) and stiff aromatic rings ($k \approx 50{,}000$). Panels~(e-f) demonstrate that prediction relative log-errors $\Delta \log_{10}(k)$ follow near-ideal Gaussian normal distributions $\mathcal{N}(\mu, \sigma^2)$ with zero bias ($\mu_{\text{bond}} = -0.0141, \mu_{\text{angle}} = -0.0147$), proving homoscedasticity without systematic drift.
 
-\begin{figure*}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.95\textwidth]{figures/k_gaussian_distributions.png}
+\includegraphics[width=0.92\textwidth]{figures/k_gaussian_distributions.png}
 \caption{Six-panel Gaussian density and homoscedastic error bell curve analysis for bond and angle force constants.}
 \label{fig:gaussian}
-\end{figure*}
+\end{figure}
 
 \subsection{Physical Regime Confusion Matrices}
 Figure~\ref{fig:confusion} displays the confusion matrices across physical force regimes. For $k_{\text{bond}}$, overall classification accuracy reaches $\mathbf{96.79\%}$ (Weighted F1 = $0.9684$). Crucially, \textbf{zero} rigid aromatic constraints ($k \ge 25\text{k}$) are misclassified as flexible bonds. For $k_{\text{angle}}$, overall accuracy reaches $\mathbf{88.43\%}$ with zero flexible angles misclassified as rigid planar rings.
 
-\begin{figure*}[t]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.75\textwidth]{figures/confusion_matrices.png}
 \caption{Physical force regime confusion matrices for bond and angle spring constants, illustrating sharp diagonal dominance.}
 \label{fig:confusion}
-\end{figure*}
+\end{figure}
 
 \subsection{Thermodynamic Boltzmann Overlap \& Verification}
 Figure~\ref{fig:boltzmann} plots the thermodynamic conformational overlap between empirical MARTINI~3 distributions and predicted ensembles at $T = 300\text{ K}$. Median Bhattacharyya overlap reaches $BC = \mathbf{0.9948}$ for angles and $0.8377$ for bonds, with a median Kullback-Leibler divergence of $D_{KL} = \mathbf{0.052\text{ }k_B T}$, proving that predicted harmonic wells yield conformational sampling virtually identical to all-atom-derived MARTINI potentials.
 
-\begin{figure*}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/boltzmann_overlap_benchmark.png}
+\includegraphics[width=0.88\textwidth]{figures/boltzmann_overlap_benchmark.png}
 \caption{Thermodynamic Boltzmann distribution overlap benchmark at $300\text{ K}$, demonstrating $99.5\%$ median conformational overlap ($BC = 0.9948$).}
 \label{fig:boltzmann}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/IBUP_post_molecular_verification.png}
+\includegraphics[width=0.90\textwidth]{figures/IBUP_post_molecular_verification.png}
 \caption{Turnkey parameterization and physical verification diagnostic for Coarse-Grained Ibuprofen (\texttt{IBUP}).}
 \label{fig:ibup}
-\end{figure*}
+\end{figure}
 
 % =========================================================================
 % SECTION 2.11: ANALYSIS AND DISCUSSION
@@ -596,7 +656,6 @@ Table~\ref{tab:ablation} isolates the impact of individual architectural compone
 \centering
 \caption{Ablation analysis on held-out test molecules.}
 \label{tab:ablation}
-\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 \textbf{Configuration} & \textbf{Bond $R^2$} & \textbf{Angle $R^2$} & \textbf{Angle MAE} \\
@@ -608,14 +667,13 @@ Table~\ref{tab:ablation} isolates the impact of individual architectural compone
 \quad w/o Regime Loss ($\mathcal{L}_{\text{CE}}$) & $0.9385$ & $0.8912$ & $14.20\text{ kJ}$ \\
 \quad w/o 1-WL Ring Features & $0.8410$ & $0.8520$ & $16.90\text{ kJ}$ \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular}
 \end{table}
 
 \subsection{Failure Case Analysis}
 Out of 122 held-out test molecules, exactly one topology failed physical verification: \texttt{SAP4} (a complex saponin triterpenoid derivative). Diagnostic inspection revealed:
 \begin{itemize}
-    \item \texttt{SAP4} contains an exceptionally floppy ground-truth angle spring constant: $k_{\text{angle}} = 3.0\text{ kJ/mol/rad}^2$.
+    \item \texttt{SAP4} exhibits an exceptionally soft ground-truth angle stiffness: $k_{\text{angle}} = 3.0\text{ kJ/mol/rad}^2$.
     \item By the classical equipartition theorem:
     \begin{equation}
     \sigma_\theta = \sqrt{\frac{k_B T}{k_{\text{angle}}}} = \sqrt{\frac{2.4943}{3.0}} \text{ rad} = 52.26^\circ.
@@ -638,7 +696,7 @@ On a single Intel CPU core, forward parameterization takes \textbf{$2.1\text{ ms
 This course project establishes a machine learning framework for automated coarse-grained force-field parameterization:
 \begin{enumerate}
     \item \textbf{Methodological Advancement}: Decoupling continuous topological representation learning (via GNN message passing) from discrete boundary regression (via XGBoost stacking) resolves the long-standing regression-to-the-mean bottleneck in empirical force fields ($R^2_{\text{angle}} = \mathbf{0.9211}$).
-    \item \textbf{Physical Validation}: We prove that machine-learned force constants safely sustain standard Velocity Verlet integration at $\Delta t = 20\text{ fs}$ ($100\%$ pass rate, worst-case $\Delta t_{\min} = 36.3\text{ fs}$) while preserving thermodynamic conformational ensembles ($BC = 0.9948$).
+    \item \textbf{Physical Validation}: Machine-learned force constants safely sustain Velocity Verlet integration at $\Delta t = 20\text{ fs}$ ($100\%$ pass rate, $\Delta t_{\min} = 36.3\text{ fs}$) while preserving thermodynamic conformational ensembles ($BC = 0.9948$).
     \item \textbf{Operational Impact}: Slashes parameterization turnaround from weeks of all-atom simulation to under 3 milliseconds per molecule.
 \end{enumerate}
 
