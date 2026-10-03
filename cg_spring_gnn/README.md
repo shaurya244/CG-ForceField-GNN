@@ -14,14 +14,14 @@
 
 ## 1. Key Models & Performance Summary
 
-| Architecture / Model | Bond $R^2$ | Bond MAE | Angle $R^2$ (Full) | Angle MAE ($P_{80}$) | Verlet $\Delta t_{\min}$ | Boltzmann Overlap ($BC$) | Pass Rate |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Mean Baseline** | $-0.003$ | $268.4\text{ kJ}$ | $-0.001$ | $19.95\text{ kJ}$ | N/A | $0.2104$ | $0.0\%$ |
-| **Base GNN (`checkpoints/best_model.pt`)** | $0.852$ | $184.2\text{ kJ}$ | $0.231$ | $10.15\text{ kJ}$ | $32.4\text{ fs}$ | $0.9812$ | $96.7\%$ |
-| **Specialized $P_{80}$ GNN (`checkpoints/best_model_p80.pt`)** | $0.852$ | $184.2\text{ kJ}$ | $0.574^*$ | $6.95\text{ kJ}$ | $34.1\text{ fs}$ | $0.9880$ | $98.4\%$ |
-| **SOTA Hybrid Model (`checkpoints/hybrid_model.pt`)** | **0.865** | **172.6 kJ** | **0.672** | **4.82 kJ** | **36.3 fs** | **0.9948** | **99.2%** |
+| Architecture / Model | Bond $R^2$ (Linear) | Bond MAE ($\text{kJ/mol/nm}^2$) | Angle $R^2$ (Full) | Angle MAE (Full) | Angle MedAE | Verlet $\Delta t_{\min}$ | Boltzmann Overlap ($BC$) | Pass Rate |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Mean Baseline** | $-0.262$ | $15{,}756$ | $-0.180$ | $41.80\text{ kJ}$ | $28.40\text{ kJ}$ | N/A ($12.3\%$) | $0.2104$ | $0.0\%$ |
+| **Base GNN (`checkpoints/best_model.pt`)** | $0.9398$ | $1{,}880.2$ | $0.6041$ | $23.11\text{ kJ}$ | $1.43\text{ kJ}$ | $32.4\text{ fs}$ | $0.9812$ | $96.7\%$ |
+| **Specialized $P_{80}$ GNN (`checkpoints/best_model_p80.pt`)** | $0.9402$ | $1{,}865.1$ | $0.2188$ ($0.601^*$) | $29.97\text{ kJ}$ ($4.41^*$) | $1.33\text{ kJ}$ | $34.1\text{ fs}$ | $0.9880$ | $98.4\%$ |
+| **SOTA Hybrid Model (`checkpoints/hybrid_model.pt`)** | **0.9398** | **1,880.2** | **0.9211** | **12.42 kJ** | **0.50 kJ** | **36.3 fs** | **0.9948** | **99.2%** |
 
-$^*$*Evaluated on the natural flexible/medium $P_{80}$ subset ($k_{\text{angle}} \le 78.10\text{ kJ/mol/rad}^2$).*
+$^*$*Evaluated on the natural flexible/medium $P_{80}$ subset ($k_{\text{angle}} \le 78.10\text{ kJ/mol/rad}^2$, $N = 361$).*
 
 ---
 
@@ -53,9 +53,9 @@ $^*$*Evaluated on the natural flexible/medium $P_{80}$ subset ($k_{\text{angle}}
                                  ▼            ▼
              ┌─────────────────────┐   ┌──────────────────────────┐
              │ Decoupled Heads     │   │ Stage-2 XGBoost Stacking │
-             │ • k_bond  (R2=0.865)│   │ • GNN Latent (384-dim)   │
+             │ • k_bond  (R2=0.940)│   │ • GNN Latent (384-dim)   │
              │ • r_0     (R2=0.478)│   │ • Raw Skip Features      │
-             │ • theta_0 (R2=0.661)│   │ • k_angle (R2=0.672)     │
+             │ • theta_0 (R2=0.661)│   │ • k_angle (R2=0.921)     │
              └─────────────────────┘   └─────────────┬────────────┘
                                                      │
                                                      ▼
@@ -82,9 +82,9 @@ $$
 $$
 
 ### 2.2 Why Hybrid Stacking Wins Over Pure Neural Networks
-In empirical force fields like MARTINI 3, angle constants follow human-curated lookup rules based on ring membership (e.g. $k_a \in \{20, 25, 45, 70, 100, 1000\}$). Pure gradient-based neural networks minimize MSE along continuous manifolds, causing **regression-to-the-mean** artifacts ($R^2 \approx 0.23$). 
+In empirical force fields like MARTINI 3, angle constants follow human-curated lookup rules based on ring membership (e.g. $k_a \in \{20, 25, 45, 70, 100, 1000\}$). Pure gradient-based neural networks minimize MSE along continuous manifolds, causing **regression-to-the-mean** artifacts ($R^2 \approx 0.6041$, smoothed transitions). 
 
-By training a **Stage-2 Gradient-Boosted Decision Tree (XGBoost)** on the GNN's 384-dimensional latent graph embeddings and raw skip features, the hybrid model precisely splits the feature space along sharp threshold boundaries ($R^2 = \mathbf{0.672}$, MAE $= \mathbf{4.82\text{ kJ/mol/rad}^2}$).
+By training a **Stage-2 Gradient-Boosted Decision Tree (XGBoost)** on the GNN's 384-dimensional latent graph embeddings and raw skip features, the hybrid model precisely splits the feature space along sharp threshold boundaries ($R^2 = \mathbf{0.9211}$, MAE $= \mathbf{12.42\text{ kJ/mol/rad}^2}$, MedAE $= \mathbf{0.50\text{ kJ/mol/rad}^2}$, cutting outlier RMSE by $-55.4\%$).
 
 ![Architectural Diagnostic](./results/architectural_diagnostic_gnn_vs_hybrid.png)
 
