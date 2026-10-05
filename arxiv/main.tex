@@ -134,7 +134,7 @@ From a machine learning perspective, bonded parameterization can be cast as an i
 
 However, applying statistical pattern recognition to force-field parameterization exposes four acute scientific challenges:
 \begin{enumerate}
-    \item \textbf{Extreme Multi-Scale Target Distributions}: Empirical spring constants span over three orders of magnitude ($k_{\text{bond}} \in [10^3, 5\times 10^4]\text{ kJ/mol/nm}^2$; $k_{\text{angle}} \in [5, 10^3]\text{ kJ/mol/rad}^2$). Standard squared error loss functions in linear space are overwhelmed by rare, stiff ring constraints.
+    \item \textbf{Extreme Multi-Scale Target Distributions}: Empirical spring constants span more than three orders of magnitude ($k_b \in [10^3, 5\times 10^4]\text{ kJ/mol/nm}^2$; $k_a \in [5, 10^3]\text{ kJ/mol/rad}^2$). Standard squared-error loss functions in linear space are overwhelmed by rare, stiff ring constraints.
     \item \textbf{Permutation Invariance of Angle Triplets}: The physical angle potential between beads $i, j, k$ centered at $j$ is strictly invariant under arm transposition: $(i-j-k) \equiv (k-j-i)$. Learned representations must satisfy this geometric invariance without heuristic data augmentation.
     \item \textbf{Numerical Integration Stability}: Predictions do not exist in isolation; they are deployed directly into symplectic integrators (e.g., Velocity Verlet). An over-predicted stiffness constant induces high-frequency numerical resonance, violating the stability limit $\Delta t \le 2/\omega$ and causing simulation coordinates to diverge to NaN.
     \item \textbf{The Continuous Manifold vs. Discrete Table Dilemma}: While continuous quantum interactions dictate equilibrium distances ($r_0, \theta_0$), force-field developers historically assign angle constants using human-curated discrete lookup tables based on ring membership (e.g., $k_a = 25, 35, 70, 1000\text{ kJ/mol/rad}^2$). Continuous gradient-based neural networks suffer from severe regression-to-the-mean when fitting such step functions.
@@ -265,7 +265,15 @@ To solve this dilemma, we design a two-stage stacking architecture. We freeze th
 \begin{equation}
 \mathbf{f}_{ijk} = [\mathbf{z}_{ijk} \parallel \deg(v_i) \parallel \deg(v_j) \parallel \deg(v_k) \parallel \mathbb{I}_{\text{ring}}(i, j, k) \parallel \mathbf{e}_{\text{type}}(v_j)].
 \end{equation}
-We train an orthogonal gradient-boosted decision tree ensemble (XGBoost)~\cite{chen2016xgboost} on $\mathbf{f}_{ijk}$. The decision trees recursively partition the latent space along axis-aligned thresholds, snapping predictions to discrete empirical force-field bins while retaining full topological generalization.
+We train an orthogonal gradient-boosted decision tree ensemble (XGBoost)~\cite{chen2016xgboost} on $\mathbf{f}_{ijk}$. The decision trees recursively partition the latent space along axis-aligned thresholds, snapping predictions to discrete empirical force-field bins while retaining full topological generalization (Figure~\ref{fig:diagnostic}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/architectural_diagnostic_gnn_vs_hybrid.png}
+\caption{Architectural diagnostic comparing the smooth continuous manifold of the pure GNN against the orthogonal decision boundary partitioning of the Stacking Hybrid Model (Test Set $N=458$). Left: Base GNN with smooth MLP head underpredicts discrete constraint angles ($R^2 = 0.6041$, $\text{MAE} = 23.11\text{ kJ/mol/rad}^2$). Center: GNN representations with Random Forest head ($R^2 = 0.8660$, $\text{MAE} = 14.80\text{ kJ/mol/rad}^2$). Right: SOTA GNN + XGBoost Hybrid ($R^2 = 0.9211$, $\text{MAE} = 12.42\text{ kJ/mol/rad}^2$, $\text{MedAE} = 0.50\text{ kJ/mol/rad}^2$), capturing both rigid constraints and flexible physical springs.}
+\label{fig:diagnostic}
+\end{figure}
+
 
 \begin{algorithm}[htbp]
 \caption{End-to-End Training and Two-Stage Forward Inference Pipeline}
@@ -588,8 +596,8 @@ On a single Intel CPU core, forward parameterization executes in \textbf{$2.1\te
 
 This paper establishes an inductive machine learning framework for automated coarse-grained force-field parameterization:
 \begin{enumerate}
-    \item \textbf{Methodological Advancement}: Decoupling continuous topological representation learning (via GNN message passing) from discrete boundary regression (via XGBoost stacking) resolves the long-standing regression-to-the-mean bottleneck in empirical force fields ($R^2_{\text{angle}} = \mathbf{0.9211}$).
-    \item \textbf{Physical Validation}: Predicted force constants safely sustain Velocity Verlet integration at $\Delta t = 20\text{ fs}$ ($100\%$ pass rate, $\Delta t_{\min} = 36.3\text{ fs}$) while preserving thermodynamic conformational ensembles ($BC = 0.9948$).
+    \item \textbf{Methodological Advancement}: Decoupling continuous topological representation learning (via GNN message passing) from discrete boundary regression (via XGBoost) resolves the empirical regression-to-the-mean bottleneck ($R^2_{\text{angle}} = \mathbf{0.9211}$).
+    \item \textbf{Physical Validation}: Predicted force constants sustain Velocity Verlet integration at $\Delta t = 20\text{ fs}$ ($100\%$ pass rate, $\Delta t_{\min} = 36.3\text{ fs}$) while preserving thermodynamic conformational ensembles ($BC = 0.9948$).
     \item \textbf{Operational Impact}: Slashes parameterization turnaround from weeks of all-atom simulation to under 3 milliseconds per molecule.
 \end{enumerate}
 

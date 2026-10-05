@@ -63,6 +63,13 @@ bin/
 *.log
 *.tmp
 *.bak
+*.aux
+*.out
+*.toc
+*.lot
+*.lof
+*.bcf
+*.run.xml
 scratch/
 .tempmediaStorage/
 
